@@ -6,14 +6,28 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:51:08 by rpet          #+#    #+#                 */
-/*   Updated: 2019/11/20 09:03:54 by rpet          ########   odam.nl         */
+/*   Updated: 2019/11/21 17:47:27 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprinft.h"
+#include <stdarg.h>
+#include "libftprintf.h"
 
-char	*ft_conv_c(t_flag flag)
+#include <stdio.h>
+
+int		ft_conv_c(va_list args, t_flag *flag)
 {
+	//char	*str;
+	char	c;
+	int		len;
+	int		pad;
 
-	return ();
+	c = (char)va_arg(args, int);
+	len = flag->width;
+	pad = flag->padding;
+	printf("lengte: [%i]\n", len);
+	printf("padding: [%i]\n", pad);
+	//if (flag->padding == 1)
+	printf("Als hier komt is het joepie: [%666c]\n", c);		
+	return (len);
 }

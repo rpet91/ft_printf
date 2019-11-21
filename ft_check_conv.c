@@ -6,17 +6,18 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 11:17:00 by rpet          #+#    #+#                 */
-/*   Updated: 2019/11/20 09:02:56 by rpet          ########   odam.nl         */
+/*   Updated: 2019/11/21 15:50:37 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdarg.h>
 #include "libftprintf.h"
 
-char	*ft_check_conv(t_flag *flag)
+int		ft_check_conv(va_list args, t_flag *flag)
 {
 	if (flag->conversion == 'c')
-		return (ft_conv_c(flag));
-/*	else if (flag->conversion == 's')
+		return (ft_conv_c(args, flag));
+/*	else if (flag->conversion == 'si')
 		return (ft_conv_s('s', flag));
 	else if (flag->conversion == 'p')
 		return (ft_conv_p('p', flag));
@@ -32,5 +33,5 @@ char	*ft_check_conv(t_flag *flag)
 		return (ft_conv_x_upp('X', flag));
 	else if (flag->conversion == '%')
 		return (ft_conv_perc('%', flag));*/
-	return ("0");
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/20 16:27:09 by rpet          #+#    #+#                 */
-/*   Updated: 2019/11/20 16:37:12 by rpet          ########   odam.nl         */
+/*   Updated: 2019/11/21 15:11:10 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ t_flag		*ft_empty_flag(void)
 	empty = malloc(sizeof(t_flag));
 	if (empty == NULL)
 		return (NULL);
-	empty->zerodash = 0;
-	empty->spaceplus = 0;
+	empty->padding = 0;
+	empty->leading = 0;
 	empty->hash = 0;
 	empty->width = 0;
 	empty->precision = 0;
+	empty->modifier = 0;
 	empty->conversion = 0;
 	return (empty);
 }

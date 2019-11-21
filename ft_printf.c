@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 09:45:38 by rpet          #+#    #+#                 */
-/*   Updated: 2019/11/20 16:31:55 by rpet          ########   odam.nl         */
+/*   Updated: 2019/11/21 17:47:23 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 int		ft_printf(const char *format, ...)
 {
 	va_list		args;
-	t_flag		*new;
+	t_flag		*flag;
 	char		*form_str;
-	//char		*conv_str;
+	int			malloc_size;
 
 	form_str = malloc(sizeof(char*));
 	if (form_str == NULL)
@@ -34,13 +34,13 @@ int		ft_printf(const char *format, ...)
 		if (*form_str == '%')
 		{
 			form_str++;
-			new = ft_check_flag(&form_str);
-			//conv_str = ft_check_conv(new);
+			flag = ft_check_flag(args, &form_str);
+			malloc_size = ft_check_conv(args, flag);
 		}
 		form_str++;
-		printf("string na flags: [%s]\n", form_str);
+		printf("\nstring na flags: [%s]\n", form_str);
 	}
-	printf("struct na hele loop:\n[%i]\n[%i]\n[%i]\n[%i]\n[%i]\n[%c]\n", new->zerodash, new->spaceplus, new->hash, new->width, new->precision, new->conversion);
+	printf("\nstruct na hele loop:\npadding: [%i]\nleading: [%i]\nhash: [%i]\nwidth: [%i]\nprecision: [%i]\nmodifier: [%i]\nconversion: [%c]\n", flag->padding, flag->leading, flag->hash, flag->width, flag->precision, flag->modifier, flag->conversion);
 	va_end(args);
 	return (0);
 }
