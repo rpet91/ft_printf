@@ -1,45 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_conv_c.c                                        :+:    :+:            */
+/*   ft_create_string.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/18 07:51:08 by rpet          #+#    #+#                 */
-/*   Updated: 2019/11/22 11:24:09 by rpet          ########   odam.nl         */
+/*   Created: 2019/11/22 15:29:33 by rpet          #+#    #+#                 */
+/*   Updated: 2019/11/22 17:15:42 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
 #include <stdlib.h>
 #include "libftprintf.h"
-#include "libft.h"
 
-t_list		*ft_conv_c(va_list args, t_flag *flag)
+t_list		*ft_create_string(char **form_str)
 {
 	char	*str;
-	char	c;
 	int		i;
+	int		len;
 	t_list	*new;
 
-	if (flag->width == 0)
-		flag->width = 1;
-	str = malloc(sizeof(char) * (flag->width + 1));
+	len = 0;
+	while (*(*form_str + len) != '%' && *(*form_str + len) != '\0')
+		len++;
+	str = malloc(sizeof(char) * (len + 1));
 	if (str == NULL)
 		return (0);
-	c = (char)va_arg(args, int);
 	i = 0;
-	while (i < (flag->width))
+	while (i < len)
 	{
-		if (flag->padding == 1 && i == 0)
-			str[i] = c;
-		else if (flag->padding != 1 && i == flag->width - 1)
-			str[i] = c;
-		else
-			str[i] = ' ';
+		str[i] = *(*form_str + i);
 		i++;
 	}
 	str[i] = '\0';
+	*form_str = *form_str + (i - 1);
 	new = ft_new_element(str);
 	return (new);
 }
