@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 10:14:36 by rpet          #+#    #+#                 */
-/*   Updated: 2019/11/22 16:33:58 by rpet          ########   odam.nl         */
+/*   Updated: 2019/11/25 08:48:21 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct		s_flag
 	int				precision;
 	int				modifier;
 	char			conversion;
+	int				flag_len;
 }					t_flag;
 
 typedef struct		s_list
@@ -45,6 +46,6 @@ t_list				*ft_conv_c(va_list args, t_flag *flag);
 //iets				ft_conv_u(iets);
 //iets				ft_conv_x_low(iets);
 //iets				ft_conv_x_upp(iets);
-//iets				ft_conv_perc(iets);
+t_list				*ft_conv_perc(char **form_str);
 
 #endif
