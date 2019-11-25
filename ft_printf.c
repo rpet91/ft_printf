@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 09:45:38 by rpet          #+#    #+#                 */
-/*   Updated: 2019/11/25 08:00:30 by rpet          ########   odam.nl         */
+/*   Updated: 2019/11/25 12:29:25 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,37 +21,37 @@ int		ft_printf(const char *format, ...)
 	va_list		args;
 	t_flag		*flag;
 	t_list		*new;
-	t_list		*print;
+	t_list		*head;
 	char		*form_str;
 
 	form_str = malloc(sizeof(char*));
 	if (form_str == NULL)
 		return (0);
 	form_str = (char *)format;
-	print = NULL;
+	head = NULL;
 	va_start(args, format);
 	printf("Originele format: [%s]\n\n", format);
 	while (*form_str)
 	{
-		if (*form_str == '%'  && *form_str + 1 != '%')
+		if (*form_str == '%'  && *(form_str + 1) != '%')
 		{
 			form_str++;
-			flag = ft_check_flag(args, &form_str);
+			flag = ft_check_flag(args, form_str);
 			new = ft_check_conv(args, flag);
+			form_str = form_str + flag->flag_len;
 		}
 		else
 			new = ft_create_string(&form_str);
-		ft_add_to_list(new, &print);
+		ft_add_to_list(new, &head);
 		form_str++;
+		printf("string na verwerking: [%s]\n", form_str);
 	}
 	printf("Resultaat: ");
-	while (print)
+	while (head)
 	{
-		printf("[%s]", print->content);
-		print = print->next;
+		printf("[%s]", head->content);
+		head = head->next;
 	}
-/*	printf("\n\nstruct na hele loop:\npadding: [%i]\nleading: [%i]\nhash: [%i]\nwidth: [%i]\nprecision: [%i]\nmodifier: [%i]\nconversion: [%c]\n", flag->padding, flag->leading, flag->hash, flag->width, flag->precision, flag->modifier, flag->conversion);
- */
 	va_end(args);
 	return (0);
 }

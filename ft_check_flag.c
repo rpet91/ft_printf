@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 16:24:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/11/22 09:48:27 by rpet          ########   odam.nl         */
+/*   Updated: 2019/11/25 16:10:36 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,25 @@ int			ft_check_modifier(char *form_str, t_flag *new)
 	if (*form_str == 'l' && *(form_str + 1) != 'l')
 	{
 		new->modifier = 1;
+		new->flag_len = new->flag_len + 1;
 		return (1);
 	}
-	else if (*form_str == 'l' && *(form_str + 1) == 'l')
+	if (*form_str == 'l' && *(form_str + 1) == 'l')
 	{
 		new->modifier = 2;
+		new->flag_len = new->flag_len + 2;
 		return (2);
 	}
-	else if (*form_str == 'h' && *(form_str + 1) != 'h')
+	if (*form_str == 'h' && *(form_str + 1) != 'h')
 	{
 		new->modifier = 3;
+		new->flag_len = new->flag_len + 1;
 		return (1);
 	}
-	else if (*form_str == 'h' && *(form_str + 1) == 'h')
+	if (*form_str == 'h' && *(form_str + 1) == 'h')
 	{
 		new->modifier = 4;
+		new->flag_len = new->flag_len + 2;
 		return (2);
 	}
 	return (0);
@@ -65,17 +69,19 @@ int			ft_check_precision(va_list args, char *form_str, t_flag *new)
 {
 	int		i;
 
-	i = 0;
+	form_str++;
+	i = 1;
 	if (*form_str == '*')
 	{
 		new->precision = va_arg(args, int);
-		i = 1;
+		i = 2;
 	}
-	else if (*form_str >= '1' && *form_str <= '9')
+	if (*form_str >= '0' && *form_str <= '9')
 	{
 		new->precision = ft_atoi(form_str);
-		i = ft_intlen(new->precision);
+		i = ft_intlen(new->precision) + 1;
 	}
+	new->flag_len = new->flag_len + i;
 	return (i);
 }
 
@@ -89,11 +95,12 @@ int			ft_check_width(va_list args, char *form_str, t_flag *new)
 		new->width = va_arg(args, int);
 		i = 1;
 	}
-	else if (*form_str >= '1' && *form_str <= '9')
+	if (*form_str >= '1' && *form_str <= '9')
 	{
 		new->width = ft_atoi(form_str);
 		i = ft_intlen(new->width);
 	}
+	new->flag_len = new->flag_len + i;
 	return (i);
 }
 
@@ -116,27 +123,29 @@ int			ft_check_flags(char *form_str, t_flag *new)
 			new->hash = 1;
 		i++;
 	}
+	new->flag_len = i;
 	return (i);
 }
 
-t_flag		*ft_check_flag(va_list args, char **form_str)
+t_flag		*ft_check_flag(va_list args, char *form_str)
 {
 	t_flag		*new;
 	int			str_i;
 
 	new = ft_empty_flag();
-	str_i = ft_check_flags(*form_str, new);
-	*form_str = *form_str + str_i;
-	str_i = ft_check_width(args, *form_str, new);
-	*form_str = *form_str + str_i;
-	if (**form_str == '.')
+	str_i = ft_check_flags(form_str, new);
+	form_str = form_str + str_i;
+	str_i = ft_check_width(args, form_str, new);
+	form_str = form_str + str_i;
+	if (*form_str == '.')
 	{
-		(*form_str)++;
-		str_i = ft_check_precision(args, *form_str, new);
-		*form_str = *form_str + str_i;
+		str_i = ft_check_precision(args, form_str, new);
+		form_str = form_str + str_i;
 	}
-	str_i = ft_check_modifier(*form_str, new);
-	*form_str = *form_str + str_i;
-	new->conversion = **form_str;
+	else
+		new->precision = -1;
+	str_i = ft_check_modifier(form_str, new);
+	form_str = form_str + str_i;
+	new->conversion = *form_str;
 	return (new);
 }

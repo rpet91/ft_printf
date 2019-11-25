@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:34:07 by rpet          #+#    #+#                 */
-/*   Updated: 2019/11/22 19:18:32 by rpet          ########   odam.nl         */
+/*   Updated: 2019/11/25 17:38:20 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,15 @@
 int		main(void)
 {
 	char	*format;
-//	char	*str;
-	char	c1 = 'K';
-	char	c2 = 'r';
-	int		i1 = 13;
-	int		i2 = 0;
-	int		x1 = 21;
+	char	*str;
+	char	c1;
+	int		i;
 
-//	str = strdup("abcdefghij");
-//	printf("%20.20s", str);
-	ft_printf("%%%5c", c1);
-//	printf("Test flags: [%%]\n");
+	c1 = 't';
+	i = -1234;
+	str = strdup("fjkdgkjdfs");
+	ft_printf("%10i", i);
+//	printf("printf: [%10.4i]\n", i);
 	return (0);
 }
 /*
@@ -44,7 +42,7 @@ flag verduidelijking:
 'll'= 
 'h' = 
 'hh'= 
-`'` =  
+`'` = 
 '#' = werkt alleen met de conversions 'xXfge'. zet 0x/0X voor x/X.
 ' ' = zet een spatie vooraan de output. Wordt genegeerd door '+' en '-'.
 '+' = zet een plus vooraan de output.
