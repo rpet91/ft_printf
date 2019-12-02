@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:52:13 by rpet          #+#    #+#                 */
-/*   Updated: 2019/11/28 18:19:27 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/02 10:47:01 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ static int	ft_check_amount(t_flag *flag, int arg_int)
 	width = flag->width;
 	amount = (arg_int < 0) ? ft_intlen(arg_int * -1) : ft_intlen(arg_int);
 	amount = (amount < precision) ? precision : amount;
+	if (arg_int == 0 && (flag->precision == -1 || flag->precision == 0))
+		amount = 0;
 	if (flag->leading != 0 || arg_int < 0)
 		amount++;
 	return (amount);
