@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 10:14:36 by rpet          #+#    #+#                 */
-/*   Updated: 2019/11/27 12:19:11 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/02 18:01:40 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,11 @@ void				ft_add_to_list(t_list *new, t_list **start);
 t_list				*ft_check_conv(va_list args, t_flag *flag);
 t_list				*ft_conv_c(va_list args, t_flag *flag);
 t_list				*ft_conv_s(va_list args, t_flag *flag);
-//iets				ft_conv_p(iets);
+//t_list				*ft_conv_p(va_list args, t_flag *flag);
 t_list				*ft_conv_i(va_list args, t_flag *flag);
 //iets				ft_conv_u(iets);
 //iets				ft_conv_x_low(iets);
 //iets				ft_conv_x_upp(iets);
+char				*ft_filling(char *str, char fill, int size);
 
 #endif
