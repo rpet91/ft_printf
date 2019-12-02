@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:51:08 by rpet          #+#    #+#                 */
-/*   Updated: 2019/11/25 15:39:53 by rpet          ########   odam.nl         */
+/*   Updated: 2019/11/26 14:09:31 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ static char		*ft_fill_string(char *str, t_flag *flag, char c)
 
 t_list			*ft_conv_c(va_list args, t_flag *flag)
 {
-	char	*str;
-	char	c;
-	t_list	*new;
+	char		*str;
+	char		c;
+	t_list		*new;
 
 	if (flag->width == 0)
 		flag->width = 1;
 	str = malloc(sizeof(char) * (flag->width + 1));
 	if (str == NULL)
 		return (0);
-	c = (char)va_arg(args, int);
+	c = (flag->conversion == '%') ? '%' : (char)va_arg(args, int);
 	str = ft_fill_string(str, flag, c);
-	new = ft_new_element(str);
+	new = ft_new_element(str, flag->width);
 	return (new);
 }

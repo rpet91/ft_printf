@@ -6,14 +6,14 @@
 #    By: rpet <marvin@codam.nl>                       +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/13 09:40:33 by rpet          #+#    #+#                  #
-#    Updated: 2019/11/25 16:52:08 by rpet          ########   odam.nl          #
+#    Updated: 2019/11/28 16:45:08 by rpet          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 SRCS = ft_printf.c ft_empty_flag.c ft_check_flag.c ft_create_string.c \
 	   ft_new_element.c ft_add_to_list.c ft_check_conv.c ft_conv_c.c \
-	   ft_conv_s.c ft_conv_di.c
+	   ft_conv_s.c ft_conv_i.c
 OBJS = $(SRCS:.c=.o) 
 LIBDIR = libft
 FLAGS = -Wall -Wextra -Werror
@@ -40,7 +40,7 @@ fclean: clean
 re: fclean all
 
 
-		\/  DIET MOET WEG \/
+		#\/  DIET MOET WEG \/
 
 
 test: $(NAME)

@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:34:07 by rpet          #+#    #+#                 */
-/*   Updated: 2019/11/25 17:38:20 by rpet          ########   odam.nl         */
+/*   Updated: 2019/11/28 18:16:49 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ int		main(void)
 	char	c1;
 	int		i;
 
-	c1 = 't';
-	i = -1234;
-	str = strdup("fjkdgkjdfs");
-	ft_printf("%10i", i);
-//	printf("printf: [%10.4i]\n", i);
+	c1 = 'r';
+	i = 0;
+	str = strdup("(null)");
+	ft_printf("[%010.1i]", i);
+	printf("\n[%010.1i] <-- printf\n", i);
+//	ft_printf("ft_printf: [%s]\n", NULL);
 	return (0);
 }
 /*

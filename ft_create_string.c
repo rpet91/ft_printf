@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/22 15:29:33 by rpet          #+#    #+#                 */
-/*   Updated: 2019/11/25 17:38:17 by rpet          ########   odam.nl         */
+/*   Updated: 2019/11/26 13:53:04 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,11 @@ t_list		*ft_create_string(char **form_str)
 	len = 0;
 	while (*(*form_str + len) != '%' && *(*form_str + len) != '\0')
 		len++;
-	if (**form_str == '%' && *(*form_str + 1) == '%')
-	{
-		(*form_str)++;
-		len++;
-	}
 	str = malloc(sizeof(char) * (len + 1));
 	if (str == NULL)
 		return (0);
 	ft_strlcpy(str, *form_str, len + 1);
 	*form_str = *form_str + (len - 1);
-	new = ft_new_element(str);
+	new = ft_new_element(str, (int)len);
 	return (new);
 }

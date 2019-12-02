@@ -6,13 +6,14 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 16:24:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/11/25 16:10:36 by rpet          ########   odam.nl         */
+/*   Updated: 2019/11/27 14:29:01 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include "libftprintf.h"
 #include "libft.h"
+#include <stdio.h>
 
 /*
 ** padding = 0 --> default, didn't find a - and 0
@@ -26,9 +27,9 @@
 ** width = 0 --> didn't find a * or number(int)
 ** width = -1 --> found a *
 ** width = number --> found a number
-** precision = 0 --> didn't find a .
-** precision = -1 --> found a *
-** precision = number --> found a number
+** precision = -1 --> found a . and no number or *
+** precision = -2 --> didn't find a .
+** precision = number --> found a . and number or *
 ** modifier = 0 --> didn't find l/ll/h/hh
 ** modifier = 1 --> found l
 ** modifier = 2 --> found ll
@@ -69,17 +70,18 @@ int			ft_check_precision(va_list args, char *form_str, t_flag *new)
 {
 	int		i;
 
-	form_str++;
 	i = 1;
-	if (*form_str == '*')
+	if (form_str[i] != '*' && ft_isdigit(form_str[(int)i]) == 0)
+		new->precision = -1;
+	if (form_str[i] == '*')
 	{
 		new->precision = va_arg(args, int);
-		i = 2;
+		return (2);
 	}
-	if (*form_str >= '0' && *form_str <= '9')
+	while (ft_isdigit(form_str[(int)i]) == 1 && form_str != '\0')
 	{
-		new->precision = ft_atoi(form_str);
-		i = ft_intlen(new->precision) + 1;
+		new->precision = new->precision * 10 + form_str[i] - '0';
+		i++;
 	}
 	new->flag_len = new->flag_len + i;
 	return (i);
@@ -116,9 +118,9 @@ int			ft_check_flags(char *form_str, t_flag *new)
 		if (form_str[i] == '0' && new->padding != 1)
 			new->padding = 2;
 		if (form_str[i] == '+')
-			new->leading = 1;
-		if (form_str[i] == ' ' && new->leading != 1 && new->padding != 1)
-			new->leading = 2;
+			new->leading = '+';
+		if (form_str[i] == ' ' && new->leading != '+' && new->padding != 1)
+			new->leading = ' ';
 		if (form_str[i] == '#')
 			new->hash = 1;
 		i++;
@@ -143,7 +145,7 @@ t_flag		*ft_check_flag(va_list args, char *form_str)
 		form_str = form_str + str_i;
 	}
 	else
-		new->precision = -1;
+		new->precision = -2;
 	str_i = ft_check_modifier(form_str, new);
 	form_str = form_str + str_i;
 	new->conversion = *form_str;

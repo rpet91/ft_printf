@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 09:45:38 by rpet          #+#    #+#                 */
-/*   Updated: 2019/11/25 12:29:25 by rpet          ########   odam.nl         */
+/*   Updated: 2019/11/28 16:58:48 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 #include <stdio.h>
 #include <string.h>
 #include "libftprintf.h"
+#include "libft.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 int		ft_printf(const char *format, ...)
 {
@@ -30,10 +32,9 @@ int		ft_printf(const char *format, ...)
 	form_str = (char *)format;
 	head = NULL;
 	va_start(args, format);
-	printf("Originele format: [%s]\n\n", format);
 	while (*form_str)
 	{
-		if (*form_str == '%'  && *(form_str + 1) != '%')
+		if (*form_str == '%')
 		{
 			form_str++;
 			flag = ft_check_flag(args, form_str);
@@ -42,14 +43,16 @@ int		ft_printf(const char *format, ...)
 		}
 		else
 			new = ft_create_string(&form_str);
+	//	printf("nieuwe str: [%s]\n", new);
 		ft_add_to_list(new, &head);
 		form_str++;
-		printf("string na verwerking: [%s]\n", form_str);
+		//printf("string na verwerking: [%s]\n", form_str);
 	}
-	printf("Resultaat: ");
+//	write(1, "Resultaat: ", 11);
 	while (head)
 	{
-		printf("[%s]", head->content);
+		//printf("[%s]", head->current->content);
+		write(1, head->current->content, head->current->length);
 		head = head->next;
 	}
 	va_end(args);

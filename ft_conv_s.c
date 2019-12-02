@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:51:19 by rpet          #+#    #+#                 */
-/*   Updated: 2019/11/25 17:02:01 by rpet          ########   odam.nl         */
+/*   Updated: 2019/11/27 10:55:50 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,10 @@ t_list			*ft_conv_s(va_list args, t_flag *flag)
 	int		arg_len;
 
 	arg_str = va_arg(args, char *);
+	if (arg_str == NULL)
+		arg_str = ft_strdup("(null)");
 	arg_len = (int)ft_strlen(arg_str);
-	if (flag->precision == -1)
+	if (flag->precision == -2)
 		flag->precision = arg_len;
 	size = ft_check_size(flag, arg_len);
 	str = malloc(sizeof(char) * (size + 1));
@@ -93,6 +95,6 @@ t_list			*ft_conv_s(va_list args, t_flag *flag)
 		str = ft_str_right(str, flag, arg_str, size);
 	else
 		str = ft_str_left(str, flag, arg_str, size);
-	new = ft_new_element(str);
+	new = ft_new_element(str, size);
 	return (new);
 }
