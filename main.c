@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:34:07 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/02 18:02:38 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/03 11:29:46 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,20 @@
 
 int		main(void)
 {
-	char	*format;
-	char	*str;
-	char	c1;
-	int		i;
-	void	*ptr;
+	char			*format;
+	char			*str;
+	char			c1;
+	int				i;
+	void			*ptr;
+	unsigned long long	u;
 
 	c1 = 'r';
-	i = 675;
+	i = 15;
+	u = -123;
 	ptr = &i;
 	str = strdup("(null)");
-	ft_printf("[%25p]", ptr);
-	printf("\n[%25.p] <-- printf\n", ptr);
+	ft_printf("[%022.6llu]", u);
+	printf("\n[%010x] <-- printf\n", i);
 //	while(1);
 	return (0);
 }

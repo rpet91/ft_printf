@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:52:13 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/02 15:59:48 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/03 08:55:47 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static void	ft_apply_modifier(long long *arg_int, t_flag *flag)
 	if (flag->modifier == 3)
 		*arg_int = (long long)(short)*arg_int;
 	if (flag->modifier == 4)
-		*arg_int = (long long)(signed)*arg_int;
+		*arg_int = (long long)(signed char)*arg_int;
 }
 
 t_list		*ft_conv_i(va_list args, t_flag *flag)
