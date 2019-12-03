@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 09:45:38 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/02 15:37:47 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/03 18:06:03 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ int		ft_printf(const char *format, ...)
 	t_flag		*flag;
 	t_list		*new;
 	t_list		*head;
-	t_list		*jemoeder;
+	t_list		*temp;
 	char		*form_str;
+	int			res;
 
 	form_str = malloc(sizeof(char*));
 	if (form_str == NULL)
@@ -40,26 +41,26 @@ int		ft_printf(const char *format, ...)
 			form_str++;
 			flag = ft_check_flag(args, form_str);
 			new = ft_check_conv(args, flag);
+			if (new == NULL)
+				new = ft_new_element(ft_filling(form_str, '0', flag->width), flag->width);
 			form_str = form_str + flag->flag_len;
 		}
 		else
 			new = ft_create_string(&form_str);
-	//	printf("nieuwe str: [%s]\n", new);
 		ft_add_to_list(new, &head);
 		form_str++;
-		//printf("string na verwerking: [%s]\n", form_str);
 	}
-//	write(1, "Resultaat: ", 11);
+	res = 0;
 	while (head)
 	{
-		//printf("[%s]", head->current->content);
 		write(1, head->current->content, head->current->length);
-		jemoeder = head->next;
+		res = res + head->current->length;
+		temp = head->next;
 		free(head->current->content);
 		free(head->current);
 		free(head);
-		head = jemoeder;
+		head = temp;
 	}
 	va_end(args);
-	return (0);
+	return (res);
 }

@@ -6,14 +6,13 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 16:24:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/03 10:55:55 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/03 17:27:42 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include "libftprintf.h"
 #include "libft.h"
-#include <stdio.h>
 
 /*
 ** padding = 0 --> default, didn't find a - and 0

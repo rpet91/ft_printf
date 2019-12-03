@@ -1,31 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_add_to_list.c                                   :+:    :+:            */
+/*   ft_xtoa.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/22 11:24:36 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/03 17:05:52 by rpet          ########   odam.nl         */
+/*   Created: 2019/12/03 11:52:32 by rpet          #+#    #+#                 */
+/*   Updated: 2019/12/03 12:01:51 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libftprintf.h"
-
-void	ft_add_to_list(t_list *new, t_list **start)
+char	*ft_xtoa(unsigned long long arg_int)
 {
-	t_list		*last;
+	int					i;
+	unsigned long long	temp;
+	char				*arg_str;
 
-	if (new == NULL)
-		return ;
-	if (*start == NULL)
-		*start = new;
-	else
+	i = 0;
+	temp = arg_int;
+	while (temp != 0)
 	{
-		last = *start;
-		while (last->next)
-			last = last->next;
-		last->next = new;
+		temp = temp / 16;
+		i++;
 	}
+	arg_str = malloc(sizeof(char) * (i + 1));
+	while (arg_int != 0)
+	{
+		temp = arg_int % 16 + '0';
+		if (temp < 10)
+			arg_str[i] = temp;
+		else
+			arg_str[i] = 87 + temp;
+		arg_int = arg_int / 16;
+		i++;
+	}
+	arg_str[i] = '\0';
+	return (arg_str);
 }
