@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 16:24:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/03 17:27:42 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/04 10:13:21 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int			ft_check_flags(char *form_str, t_flag *new)
 			new->hash = 1;
 		i++;
 	}
-	new->flag_len = i;
+	new->flag_len = new->flag_len + i;
 	return (i);
 }
 
@@ -133,7 +133,9 @@ t_flag		*ft_check_flag(va_list args, char *form_str)
 	t_flag		*new;
 	int			str_i;
 
+	form_str++;
 	new = ft_empty_flag();
+	new->flag_len++;
 	str_i = ft_check_flags(form_str, new);
 	form_str = form_str + str_i;
 	str_i = ft_check_width(args, form_str, new);
@@ -148,5 +150,6 @@ t_flag		*ft_check_flag(va_list args, char *form_str)
 	str_i = ft_check_modifier(form_str, new);
 	form_str = form_str + str_i;
 	new->conversion = *form_str;
+	new->flag_len++;
 	return (new);
 }

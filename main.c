@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:34:07 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/03 18:06:06 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/04 11:47:14 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,17 @@
 int		main(void)
 {
 	char			*str;
+	char			c;
 	int				i;
-	int				pf1;
-	int				pf2;
-
+	void			*ptr;
+		
 	i = 43;
-	str = strdup("kaaskop");
-	pf1 = ft_printf("[%05]");
-	pf2 = printf("\n[%05]\n");// <-- printf\n", i);
-	printf("pf1: [%i]\n", pf1);
-	printf("pf2: [%i]\n", pf2);
+	c = 'R';
+	ptr = &i;
+//	str = strdup("kaaskop");
+	ft_printf("[%020p]", ptr);
+	printf("\n[%020p] <-- printf\n", ptr);
+//	printf("[%#x] <--printf x\n", i);
 //	while(1);
 	return (0);
 }

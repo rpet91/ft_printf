@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 10:14:36 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/03 16:12:44 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/04 11:06:45 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ typedef struct		s_print
 int					ft_printf(const char *format, ...);
 t_flag				*ft_empty_flag(void);
 t_flag				*ft_check_flag(va_list args, char *form_str);
-t_list				*ft_create_string(char **form_str);
+t_list				*ft_create_string(char *form_str, t_flag *flag);
 t_list				*ft_new_element(char *str, int length);
 void				ft_add_to_list(t_list *new, t_list **start);
 t_list				*ft_check_conv(va_list args, t_flag *flag);
 t_list				*ft_conv_c(va_list args, t_flag *flag);
 t_list				*ft_conv_s(va_list args, t_flag *flag);
-//t_list				*ft_conv_p(va_list args, t_flag *flag);
+t_list				*ft_conv_p(va_list args, t_flag *flag);
 t_list				*ft_conv_i(va_list args, t_flag *flag);
 t_list				*ft_conv_u(va_list args, t_flag *flag);
 t_list				*ft_conv_x(va_list args, t_flag *flag);

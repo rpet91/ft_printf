@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 09:45:38 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/03 18:06:03 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/04 10:13:50 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,16 @@ int		ft_printf(const char *format, ...)
 	{
 		if (*form_str == '%')
 		{
-			form_str++;
 			flag = ft_check_flag(args, form_str);
 			new = ft_check_conv(args, flag);
-			if (new == NULL)
-				new = ft_new_element(ft_filling(form_str, '0', flag->width), flag->width);
-			form_str = form_str + flag->flag_len;
 		}
 		else
-			new = ft_create_string(&form_str);
+		{
+			flag = ft_empty_flag();
+			new = ft_create_string(form_str, flag);
+		}
 		ft_add_to_list(new, &head);
-		form_str++;
+		form_str = form_str + flag->flag_len;
 	}
 	res = 0;
 	while (head)
