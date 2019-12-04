@@ -6,13 +6,14 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 16:24:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/04 15:04:50 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/04 17:00:24 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include "libftprintf.h"
 #include "libft.h"
+#include <stdio.h>
 
 /*
 ** padding = 0 --> default, didn't find a - and 0
@@ -148,6 +149,11 @@ void		ft_check_flag(va_list args, char *form_str, t_flag *flag)
 		flag->precision = -1;
 	str_i = ft_check_modifier(form_str, flag);
 	form_str = form_str + str_i;
-	flag->conversion = *form_str;
-	flag->flag_len++;
+	if (*form_str == '\0')
+		flag->conversion = *form_str;
+	else
+	{
+		flag->conversion = *form_str;
+		flag->flag_len++;
+	}
 }

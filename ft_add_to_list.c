@@ -6,24 +6,24 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/22 11:24:36 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/03 17:05:52 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/04 16:27:44 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libftprintf.h"
 
-void	ft_add_to_list(t_list *new, t_list **start)
+void	ft_add_to_list(t_list *new, t_list **head)
 {
 	t_list		*last;
 
 	if (new == NULL)
 		return ;
-	if (*start == NULL)
-		*start = new;
+	if (*head == NULL)
+		*head = new;
 	else
 	{
-		last = *start;
+		last = *head;
 		while (last->next)
 			last = last->next;
 		last->next = new;

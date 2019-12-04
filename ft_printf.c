@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 09:45:38 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/04 15:05:05 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/04 16:56:56 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include "libft.h"
 #include <stdlib.h>
 #include <unistd.h>
+
+
 
 int		ft_printf(const char *format, ...)
 {
@@ -36,7 +38,6 @@ int		ft_printf(const char *format, ...)
 	va_start(args, format);
 	while (*form_str)
 	{
-	//	printf("str voor: %s\n", form_str);
 		flag = ft_empty_flag();
 		if (*form_str == '%')
 		{
@@ -47,7 +48,6 @@ int		ft_printf(const char *format, ...)
 			new = ft_create_string(form_str, flag);
 		ft_add_to_list(new, &head);
 		form_str = form_str + flag->flag_len;
-	//	printf("str na: %s\n", form_str);
 	}
 	res = 0;
 	while (head)
