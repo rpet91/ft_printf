@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:52:13 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/03 08:55:47 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/04 14:58:47 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static char	*ft_create_s(char *str, t_flag *flag, long long arg_int, int amount)
 	i = 0;
 	size = (flag->width > amount) ? flag->width : amount;
 	sign = (arg_int < 0) ? '-' : flag->leading;
-	fill = (flag->precision == -2 && flag->padding == 2) ? '0' : ' ';
+	fill = (flag->precision == -1 && flag->padding == 2) ? '0' : ' ';
 	str = ft_filling(str, fill, size);
 	if (sign != 0 && flag->padding == 0)
 		str[size - amount] = sign;
@@ -99,13 +99,13 @@ t_list		*ft_conv_i(va_list args, t_flag *flag)
 	int			size;
 	int			amount;
 
-	if (flag->precision != -2 && flag->padding == 2)
+	if (flag->precision != -1 && flag->padding == 2)
 		flag->padding = 0;
 	arg_int = va_arg(args, long long);
 	ft_apply_modifier(&arg_int, flag);
 	amount = (arg_int < 0) ? ft_intlen(arg_int * -1) : ft_intlen(arg_int);
 	amount = (amount < flag->precision) ? flag->precision : amount;
-	if (arg_int == 0 && (flag->precision == -1 || flag->precision == 0))
+	if (arg_int == 0 && flag->precision == 0)
 		amount = 0;
 	if (flag->leading != 0 || arg_int < 0)
 		amount++;

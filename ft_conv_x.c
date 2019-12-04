@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:54:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/03 16:25:14 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/04 15:00:07 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static char		*ft_create_s(char *str, t_flag *flag,
 	char	*arg_str;
 
 	size = (flag->width > amount) ? flag->width : amount;
-	fill = (flag->precision == -2 && flag->padding == 2) ? '0' : ' ';
+	fill = (flag->precision == -1 && flag->padding == 2) ? '0' : ' ';
 	str = ft_filling(str, fill, size);
 	arg_str = ft_fill_unsigned(arg_int, flag, amount);
 	i = 0;
@@ -105,12 +105,12 @@ t_list			*ft_conv_x(va_list args, t_flag *flag)
 	int					amount;
 
 	arg_int = va_arg(args, unsigned long long);
-	if (flag->precision != -2 && flag->padding == 2)
+	if (flag->precision != -1 && flag->padding == 2)
 		flag->padding = 0;
 	ft_apply_modifier(&arg_int, flag);
 	amount = ft_xll_len(arg_int);
 	amount = (amount < flag->precision) ? flag->precision : amount;
-	if (arg_int == 0 && (flag->precision == -1 || flag->precision == 0))
+	if (arg_int == 0 && flag->precision == 0)
 		amount = 0;
 	size = (flag->width > amount) ? flag->width : amount;
 	if (flag->hash == 1 && arg_int > 0)
