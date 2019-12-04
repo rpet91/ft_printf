@@ -6,14 +6,13 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:52:40 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/04 14:59:30 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/04 17:13:08 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <stdlib.h>
 #include "libftprintf.h"
-#include <stdio.h>
 
 static char	*ft_fill_unsigned(unsigned long long arg_int, int amount)
 {

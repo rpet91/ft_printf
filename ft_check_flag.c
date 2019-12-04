@@ -6,14 +6,13 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 16:24:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/04 17:00:24 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/04 17:10:00 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include "libftprintf.h"
 #include "libft.h"
-#include <stdio.h>
 
 /*
 ** padding = 0 --> default, didn't find a - and 0
@@ -78,7 +77,7 @@ int			ft_check_precision(va_list args, char *form_str, t_flag *flag)
 		flag->precision = va_arg(args, int);
 		i = 2;
 	}
-	while (ft_isdigit(*form_str) == 1 && form_str != '\0')
+	while (ft_isdigit(*form_str) == 1)
 	{
 		flag->precision = flag->precision * 10 + *form_str - '0';
 		form_str++;
@@ -98,10 +97,11 @@ int			ft_check_width(va_list args, char *form_str, t_flag *flag)
 		flag->width = va_arg(args, int);
 		i = 1;
 	}
-	if (*form_str >= '1' && *form_str <= '9')
+	while (ft_isdigit(*form_str) == 1)
 	{
-		flag->width = ft_atoi(form_str);
-		i = ft_intlen(flag->width);
+		flag->width = flag->width * 10 + *form_str - '0';
+		form_str++;
+		i++;
 	}
 	flag->flag_len = flag->flag_len + i;
 	return (i);

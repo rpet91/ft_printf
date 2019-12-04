@@ -6,14 +6,13 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 11:17:00 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/04 16:13:43 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/04 17:12:45 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <stdlib.h>
 #include "libftprintf.h"
-#include <stdio.h>
 
 t_list		*ft_check_conv(va_list args, t_flag *flag)
 {

@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:34:07 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/04 16:56:30 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/04 17:07:47 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int		main(void)
 	i = 43;
 	c = 'R';
 	str = strdup("kaaskop");
-	ft_printf("[%05]\n");
-	printf("[%05]\n");
+	ft_printf("[%5i]\n", i);
+	printf("[%5i]\n", i);
 //	printf("[%05%c] <-- printf\n", c);
 //	while(1);
 	return (0);
