@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:52:13 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/05 09:34:05 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/05 15:01:42 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 #include <stdlib.h>
 #include "libftprintf.h"
 #include "libft.h"
+#include <stdio.h>
 
-static char	*ft_fill_integer(long long arg_int, int amount)
+static char	*ft_fill_integer(long long arg_int, int amount, t_flag *flag)
 {
 	int		i;
 	char	*arg_str;
@@ -24,13 +25,20 @@ static char	*ft_fill_integer(long long arg_int, int amount)
 	arg_str = malloc(sizeof(char) * (amount + 1));
 	if (arg_str == NULL)
 		return (NULL);
-	if (arg_int < 0)
-		arg_int = -arg_int;
+	arg_int = (arg_int < 0) ? -arg_int : arg_int;
 	while (i < amount)
 	{
-		arg_str[amount - (i + 1)] = arg_int % 10 + '0';
+		if (flag->decimal > 0 && i % 4 == 3)
+		{
+			arg_str[amount - (i + 1)] = ',';
+			flag->decimal--;
+		}
+		else
+		{
+			arg_str[amount - (i + 1)] = arg_int % 10 + '0';
+			arg_int = arg_int / 10;
+		}
 		i++;
-		arg_int = arg_int / 10;
 	}
 	arg_str[i] = '\0';
 	return (arg_str);
@@ -45,7 +53,7 @@ static char	*ft_cpy_str(char *str, t_flag *flag, long long arg_int, int amount)
 
 	i = 0;
 	size = (flag->width > amount) ? flag->width : amount;
-	arg_str = ft_fill_integer(arg_int, amount);
+	arg_str = ft_fill_integer(arg_int, amount, flag);
 	sign = (arg_int < 0) ? '-' : flag->leading;
 	while (i < amount - (0 < sign))
 	{
@@ -104,11 +112,11 @@ t_list		*ft_conv_i(va_list args, t_flag *flag)
 	arg_int = va_arg(args, long long);
 	ft_apply_modifier(&arg_int, flag);
 	amount = (arg_int < 0) ? ft_intlen(arg_int * -1) : ft_intlen(arg_int);
+	flag->decimal = (flag->decimal == 1) ? (amount - 1) / 3 : 0;
+	amount += flag->decimal;
 	amount = (amount < flag->precision) ? flag->precision : amount;
-	if (arg_int == 0 && flag->precision == 0)
-		amount = 0;
-	if (flag->leading != 0 || arg_int < 0)
-		amount++;
+	amount = (arg_int == 0 && flag->precision == 0) ? 0 : amount;
+	amount = (flag->leading != 0 || arg_int < 0) ? amount + 1 : amount;
 	size = (flag->width > amount) ? flag->width : amount;
 	str = malloc(sizeof(char) * (size + 1));
 	if (str == NULL)

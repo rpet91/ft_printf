@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:34:07 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/05 10:59:03 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/05 15:23:36 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,21 @@
 #include <string.h>
 #include "libftprintf.h"
 #include "libft.h"
+#include <locale.h>
 
 int		main(void)
 {
+	setlocale(LC_NUMERIC, "en_US");
 	char			*str;
 	char			c;
 	int				i;
-		
-	i = 23678;
+	
+	i = 123;	
 	c = 'R';
-	str = strdup("kaaskop");
-	ft_printf("%i\n", i);
-	printf("%i <-- printf\n", i);
+	str = strdup("gavin");
+	ft_printf("%05");
+	printf("\n");
+	printf("%05");
 //	while(1);
 	return (0);
 }

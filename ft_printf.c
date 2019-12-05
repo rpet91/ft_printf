@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 09:45:38 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/05 11:06:28 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/05 15:26:15 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		ft_printf(const char *format, ...)
 			new = ft_create_string(form_str, flag);
 		ft_add_to_list(new, &head);
 		form_str += flag->flag_len;
-		print_len += head->current->length;
+		print_len += (new) ? new->current->length : 1;
 	}
 	while (head)
 	{

@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/20 16:27:09 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/05 09:24:45 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/05 15:02:06 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_flag		*ft_empty_flag(void)
 	empty->padding = 0;
 	empty->leading = 0;
 	empty->hash = 0;
+	empty->decimal = 0;
 	empty->width = 0;
 	empty->precision = 0;
 	empty->modifier = 0;

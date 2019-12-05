@@ -6,13 +6,14 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 16:24:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/04 17:10:00 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/05 15:09:12 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include "libftprintf.h"
 #include "libft.h"
+#include <stdio.h>
 
 /*
 ** padding = 0 --> default, didn't find a - and 0
@@ -23,6 +24,8 @@
 ** leading = 2 --> found a space and not a + and -
 ** hash = 0 --> didn't find a #
 ** hash = 1 --> found a #
+** decimal = 0 --> didn't find a '
+** decimal = 1 --> found a '
 ** width = 0 --> didn't find a * or number
 ** width = number --> found a * or number
 ** precision = -1 --> no precision found
@@ -124,6 +127,8 @@ int			ft_check_flags(char *form_str, t_flag *flag)
 			flag->leading = ' ';
 		if (form_str[i] == '#')
 			flag->hash = 1;
+		if (form_str[i] == '\'')
+			flag->decimal = 1;
 		i++;
 	}
 	flag->flag_len = flag->flag_len + i;

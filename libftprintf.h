@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 10:14:36 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/05 11:05:20 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/05 15:02:37 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct		s_flag
 	int				padding;
 	int				leading;
 	int				hash;
+	int				decimal;
 	int				width;
 	int				precision;
 	int				modifier;
