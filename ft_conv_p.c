@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:54:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/04 12:00:19 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/05 09:35:19 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,6 @@ t_list			*ft_conv_p(va_list args, t_flag *flag)
 	amount = (flag->padding == 2) ? size : amount;
 	str = ft_create_s(str, flag, arg_int, amount);
 	new = ft_new_element(str, size);
+	flag->print_len += size;
 	return (new);
 }

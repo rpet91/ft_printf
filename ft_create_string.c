@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/22 15:29:33 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/04 10:07:31 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/05 09:37:45 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ t_list		*ft_create_string(char *form_str, t_flag *flag)
 	ft_strlcpy(str, form_str, len + 1);
 	flag->flag_len = (int)len;
 	new = ft_new_element(str, (int)len);
+	flag->print_len += (int)len;
 	return (new);
 }

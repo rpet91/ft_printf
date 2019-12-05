@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:51:08 by rpet          #+#    #+#                 */
-/*   Updated: 2019/11/26 14:09:31 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/05 09:30:12 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ t_list			*ft_conv_c(va_list args, t_flag *flag)
 	c = (flag->conversion == '%') ? '%' : (char)va_arg(args, int);
 	str = ft_fill_string(str, flag, c);
 	new = ft_new_element(str, flag->width);
+	flag->print_len += flag->width;
 	return (new);
 }

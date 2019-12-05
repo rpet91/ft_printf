@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 09:45:38 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/04 16:56:56 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/05 11:06:28 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ int		ft_printf(const char *format, ...)
 	t_list		*head;
 	t_list		*temp;
 	char		*form_str;
-	int			res;
+	int			print_len;
 
 	form_str = malloc(sizeof(char*));
 	if (form_str == NULL)
 		return (0);
 	form_str = (char *)format;
 	head = NULL;
+	print_len = 0;
 	va_start(args, format);
 	while (*form_str)
 	{
@@ -42,18 +43,17 @@ int		ft_printf(const char *format, ...)
 		if (*form_str == '%')
 		{
 			ft_check_flag(args, form_str, flag);
-			new = ft_check_conv(args, flag);
+			new = ft_check_conv(args, flag, print_len);
 		}
 		else
 			new = ft_create_string(form_str, flag);
 		ft_add_to_list(new, &head);
-		form_str = form_str + flag->flag_len;
+		form_str += flag->flag_len;
+		print_len += head->current->length;
 	}
-	res = 0;
 	while (head)
 	{
 		write(1, head->current->content, head->current->length);
-		res = res + head->current->length;
 		temp = head->next;
 		free(head->current->content);
 		free(head->current);
@@ -61,5 +61,5 @@ int		ft_printf(const char *format, ...)
 		head = temp;
 	}
 	va_end(args);
-	return (res);
+	return (print_len);
 }
