@@ -6,49 +6,61 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:51:08 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/05 15:01:35 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/09 16:14:06 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <stdlib.h>
+#include <wchar.h>
 #include "libftprintf.h"
 
-static char		*ft_fill_string(char *str, t_flag *flag, char c)
+static unsigned char	*ft_fill_str(unsigned char *result,
+							t_flag *flag, wchar_t c, int size)
 {
-	int		i;
+	int				i;
+	int				str_size;
+	wchar_t			*wstr;
 
+	str_size = (size - ft_count_bytes(c)) + 1;
+	wstr = malloc(sizeof(wchar_t) * (str_size + 1));
+	if (wstr == NULL)
+		return (NULL);
 	i = 0;
-	while (i < flag->width)
+	while (i < str_size)
 	{
 		if (flag->padding == 1 && i == 0)
-			str[i] = c;
-		else if (flag->padding != 1 && i == flag->width - 1)
-			str[i] = c;
-		else if (flag->padding == 2 && i < flag->width - 1)
-			str[i] = '0';
+			wstr[i] = c;
+		else if (flag->padding != 1 && i == str_size - 1)
+			wstr[i] = c;
+		else if (flag->padding == 2 && i < str_size - 1)
+			wstr[i] = '0';
 		else
-			str[i] = ' ';
+			wstr[i] = ' ';
 		i++;
 	}
-	str[i] = '\0';
-	return (str);
+	wstr[i] = '\0';
+	ft_wstr_to_str(wstr, result, str_size);
+	free(wstr);
+	return (result);
 }
 
-t_list			*ft_conv_c(va_list args, t_flag *flag)
+t_list					*ft_conv_c(va_list args, t_flag *flag)
 {
-	char		*str;
-	char		c;
-	t_list		*new;
+	wchar_t			c;
+	unsigned char	*result;
+	t_list			*new;
+	int				size;
 
+	c = (flag->conversion == '%') ? '%' : (wchar_t)va_arg(args, wint_t);
 	if (flag->width == 0)
 		flag->width = 1;
-	str = malloc(sizeof(char) * (flag->width + 1));
-	if (str == NULL)
+	size = (ft_count_bytes(c) > flag->width) ? ft_count_bytes(c) : flag->width;
+	result = malloc(sizeof(char) * (size + 1));
+	if (result == NULL)
 		return (0);
-	c = (flag->conversion == '%') ? '%' : (char)va_arg(args, int);
-	str = ft_fill_string(str, flag, c);
-	new = ft_new_element(str, flag->width);
-	flag->print_len += flag->width;
+	result = ft_fill_str(result, flag, c, size);
+	new = ft_new_element(result, size);
+	flag->print_len += size;
 	return (new);
 }

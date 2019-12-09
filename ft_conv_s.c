@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:51:19 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/06 17:24:57 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/09 17:02:44 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,61 +16,86 @@
 #include "libftprintf.h"
 #include "libft.h"
 #include <stdio.h>
+#include <locale.h>
 
-static wchar_t	*ft_create_str(wchar_t *str, wchar_t *arg_str,
-					t_flag *flag, int amount)
+static unsigned char	*ft_create_str(unsigned char *str, wchar_t *arg_str,
+				t_flag *flag, int amount)
 {
-	int		i;
-	int		size;
-	char	fill;
+	int			i;
+	int			size;
+	char		fill;
+	wchar_t		*wstr;
 
 	size = (amount < flag->width) ? flag->width : amount;
 	fill = (flag->padding == 2) ? '0' : ' ';
-	str = ft_wfilling(str, fill, size);
 	i = 0;
+	wstr = malloc(sizeof(wchar_t) * (size + 1));
+	if (wstr == NULL)
+		return (NULL);
+	wstr = ft_wfilling(wstr, fill, size);
 	while (i < amount)
 	{
 		if (flag->padding == 1)
-			str[i] = arg_str[i];
+			wstr[i] = arg_str[i];
 		else
-			str[i + (size - amount)] = arg_str[i];
+			wstr[i + (size - amount)] = arg_str[i];
 		i++;
 	}
+	wstr[size] = '\0';
+	ft_wstr_to_str(wstr, str, size);
+	free(wstr);
 	return (str);
 }
 
-static int		ft_wstrlen(wchar_t *arg_str)
+static int				ft_count_bytes_string(wchar_t *arg_str)
 {
-	int		len;
 	int		i;
+	int		size;
 
-	len = 0;
 	i = 0;
+	size = 0;
 	while (arg_str[i] != '\0')
 	{
-		len += ft_count_bytes(arg_str[i]);
+		size += ft_count_bytes(arg_str[i]);
 		i++;
 	}
-	return (len);
+	return (size);
 }
 
-t_list			*ft_conv_s(va_list args, t_flag *flag)
+static wchar_t			*ft_check_modifier(va_list args, t_flag *flag)
 {
-	wchar_t	*str;
-	wchar_t	*arg_str;
-	t_list	*new;
-	int		size;
-	int		amount;
+	char		*convert_str;
+	wchar_t		*arg_wstr;
 
-	arg_str = va_arg(args, wchar_t *);
+	if (flag->modifier == 1)
+		arg_wstr = va_arg(args, wchar_t *);
+	else
+	{
+		convert_str = va_arg(args, char *);
+		if (convert_str == NULL)
+			convert_str = ft_strdup("(null)");
+		arg_wstr = ft_str_to_wstr(convert_str);
+	}
+	return (arg_wstr);
+}
+
+t_list					*ft_conv_s(va_list args, t_flag *flag)
+{
+	unsigned char	*str;
+	wchar_t			*arg_str;
+	t_list			*new;
+	int				size;
+	int				amount;
+
+	arg_str = ft_check_modifier(args, flag);
 	if (arg_str == NULL)
-		arg_str = (wchar_t *)ft_strdup("(null)");
-	amount = ft_wstrlen(arg_str);
+		arg_str = ft_str_to_wstr(ft_strdup("(null)"));
+	amount = ft_count_bytes_string(arg_str);
 	if (flag->precision == -1)
 		flag->precision = amount;
 	amount = (amount < flag->precision) ? amount : flag->precision;
 	size = (amount < flag->width) ? flag->width : amount;
-	str = malloc(sizeof(wchar_t) * (size + 1));
+	str = malloc(sizeof(char) * (size + 1));
 	if (str == NULL)
 		return (NULL);
 	str = ft_create_str(str, arg_str, flag, amount);

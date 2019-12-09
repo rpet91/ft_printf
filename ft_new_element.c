@@ -6,14 +6,14 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/22 10:41:17 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/05 15:02:19 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/09 08:50:00 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 #include <stdlib.h>
 
-t_list	*ft_new_element(char *str, int length)
+t_list	*ft_new_element(void *str, int length)
 {
 	t_print	*data;
 	t_list	*element;

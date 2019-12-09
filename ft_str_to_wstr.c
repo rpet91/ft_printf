@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_filling.c                                       :+:    :+:            */
+/*   ft_str_to_wstr.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/02 15:18:20 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/06 16:17:24 by rpet          ########   odam.nl         */
+/*   Created: 2019/12/09 16:15:29 by rpet          #+#    #+#                 */
+/*   Updated: 2019/12/09 17:04:01 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wchar.h>
+#include "libft.h"
 
-char	*ft_filling(char *str, char fill, int size)
+wchar_t		*ft_str_to_wstr(char *str)
 {
-	int		i;
+	wchar_t		*ret;
+	size_t		i;
 
+	i = ft_strlen(str);
+	ret = malloc(sizeof(wchar_t) * (i + 1));
 	i = 0;
-	while (i < size)
+	while (str[i] != '\0')
 	{
-		str[i] = fill;
+		ret[i] = str[i];
 		i++;
 	}
-	str[i] = '\0';
-	return (str);
-}
-
-wchar_t	*ft_wfilling(wchar_t *str, char fill, int size)
-{
-	int		i;
-
-	i = 0;
-	while (i < size)
-	{
-		str[i] = fill;
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
+	ret[i] = '\0';
+	return (ret);
 }

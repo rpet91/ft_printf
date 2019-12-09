@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 09:45:38 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/05 15:26:15 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/09 16:30:23 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 #include "libft.h"
 #include <stdlib.h>
 #include <unistd.h>
-
-
+#include <locale.h>
 
 int		ft_printf(const char *format, ...)
 {

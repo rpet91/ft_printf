@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 16:24:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/05 15:09:12 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/09 14:14:07 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int			ft_check_flags(char *form_str, t_flag *flag)
 	int		i;
 
 	i = 0;
-	while (ft_strchr("-0+ #", form_str[i]))
+	while (ft_strchr("-0+ #'", form_str[i]))
 	{
 		if (form_str[i] == '-')
 			flag->padding = 1;
