@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:34:07 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/09 18:00:16 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/10 14:15:40 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,27 @@
 #include "libftprintf.h"
 #include "libft.h"
 #include <locale.h>
+#include <limits.h>
 
 int		main(void)
 {
 	setlocale(LC_NUMERIC, "en_US");
 	setlocale(LC_ALL, "");
 	wchar_t			*str;
+	wchar_t			*str2;
 	char			c;
 	int				i;
 	int				a;
 	int				b;
 	char			*s;
-	
+	void			*ptr;
+	double			f;
+
 	i = 1235464;
+	f = 11/6;
 	c = 'R';
-	s = strdup("NULL");
+	ptr = &i;
+	s = strdup("kaas");
 	str = malloc(sizeof(wchar_t) * 10);
 	str[0] = 'k';
 	str[1] = 'a';
@@ -43,31 +49,25 @@ int		main(void)
 	str[7] = 'p';
 	str[8] = 0x1F414;
 	str[9] = 0;
-	a = ft_printf("%ls", str);
-	printf(" | <--- mijn functie\n");
-	b = printf("%ls", str);
-	printf(" | <--- echte printf\n");
+	str2 = L"NULL";
+	ft_printf("[");
+	a = ft_printf("%lc", 0x7FA);
+	printf("] | <--- mijn functie\n[");
+	b = printf("%lc", 0x7FA);
+	printf("] | <--- echte printf\n");
 	printf("a: [%i]\n", a);
 	printf("b: [%i]\n", b);
-//	while(1);
+	free(str);
+	free(s);
+	//while(1);
 	return (0);
 }
 /*
-flag verduidelijking:
-'-' = zet output links neer ipv rechts (default).
-'0' = vult de rest van de string met nullen. Wordt genegeerd door '-'.
-'.' = alles na de . gaat over length_modifier. 
-'*' = kijkt naar waarde van volgende argument, moet een int zijn.
-'width' = minimale width van string. is een getal of *.
-'.*' = gaat over length modifier. gaat alleen samen met 'sefgdiuxX'.
-'l' =  
-'ll'= 
-'h' = 
-'hh'= 
-`'` = 
-'#' = werkt alleen met de conversions 'xXfge'. zet 0x/0X voor x/X.
-' ' = zet een spatie vooraan de output. Wordt genegeerd door '+' en '-'.
-'+' = zet een plus vooraan de output.
+tests die falen:
+("Kashim a %c histoires à raconter", 1001);
+("%c\n", INT_MAX);
+
+
 
 conversions verduidelijking:
 'c' = character.
@@ -79,7 +79,7 @@ conversions verduidelijking:
 'x' = hex integer. icm een # geen 0x.
 'X' = hex integer (met hoofdletter). icm een # geen 0X.
 '%' = plaats alleen de %.
-'n' = 
+'n' = slaat op hoeveel characters op dat moment zijn geprint.
 'f' = 
 'g' = 
 'e' = 

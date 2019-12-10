@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:51:19 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/09 17:02:44 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/10 14:12:32 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,20 @@ static wchar_t			*ft_check_modifier(va_list args, t_flag *flag)
 	wchar_t		*arg_wstr;
 
 	if (flag->modifier == 1)
+	{
 		arg_wstr = va_arg(args, wchar_t *);
+		if (arg_wstr == NULL)
+			arg_wstr = ft_str_to_wstr("(null)");
+		else
+			arg_wstr = ft_wstrdup(arg_wstr);
+	}
 	else
 	{
 		convert_str = va_arg(args, char *);
 		if (convert_str == NULL)
-			convert_str = ft_strdup("(null)");
-		arg_wstr = ft_str_to_wstr(convert_str);
+			arg_wstr = ft_str_to_wstr("(null)");
+		else
+			arg_wstr = ft_str_to_wstr(convert_str);
 	}
 	return (arg_wstr);
 }
@@ -88,8 +95,6 @@ t_list					*ft_conv_s(va_list args, t_flag *flag)
 	int				amount;
 
 	arg_str = ft_check_modifier(args, flag);
-	if (arg_str == NULL)
-		arg_str = ft_str_to_wstr(ft_strdup("(null)"));
 	amount = ft_count_bytes_string(arg_str);
 	if (flag->precision == -1)
 		flag->precision = amount;
@@ -101,5 +106,6 @@ t_list					*ft_conv_s(va_list args, t_flag *flag)
 	str = ft_create_str(str, arg_str, flag, amount);
 	new = ft_new_element(str, size);
 	flag->print_len += size;
+	free(arg_str);
 	return (new);
 }

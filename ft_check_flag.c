@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 16:24:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/09 14:14:07 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/10 10:41:22 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 ** modifier = 4 --> found hh
 */
 
-int			ft_check_modifier(char *form_str, t_flag *flag)
+int			ft_check_modifier(const char *form_str, t_flag *flag)
 {
 	if (*form_str == 'l' && *(form_str + 1) != 'l')
 	{
@@ -67,7 +67,7 @@ int			ft_check_modifier(char *form_str, t_flag *flag)
 	return (0);
 }
 
-int			ft_check_precision(va_list args, char *form_str, t_flag *flag)
+int			ft_check_precision(va_list args, const char *form_str, t_flag *flag)
 {
 	int		i;
 
@@ -90,7 +90,7 @@ int			ft_check_precision(va_list args, char *form_str, t_flag *flag)
 	return (i);
 }
 
-int			ft_check_width(va_list args, char *form_str, t_flag *flag)
+int			ft_check_width(va_list args, const char *form_str, t_flag *flag)
 {
 	int		i;
 
@@ -110,7 +110,7 @@ int			ft_check_width(va_list args, char *form_str, t_flag *flag)
 	return (i);
 }
 
-int			ft_check_flags(char *form_str, t_flag *flag)
+int			ft_check_flags(const char *form_str, t_flag *flag)
 {
 	int		i;
 
@@ -135,7 +135,7 @@ int			ft_check_flags(char *form_str, t_flag *flag)
 	return (i);
 }
 
-void		ft_check_flag(va_list args, char *form_str, t_flag *flag)
+void		ft_check_flag(va_list args, const char *form_str, t_flag *flag)
 {
 	int			str_i;
 

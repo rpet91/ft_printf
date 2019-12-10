@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/22 15:29:33 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/05 15:02:01 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/10 10:40:05 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libftprintf.h"
 #include "libft.h"
 
-t_list		*ft_create_string(char *form_str, t_flag *flag)
+t_list		*ft_create_string(const char *form_str, t_flag *flag)
 {
 	char	*str;
 	size_t	len;
