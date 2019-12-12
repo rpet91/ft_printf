@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 16:24:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/10 10:41:22 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/12 13:39:41 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int			ft_check_flags(const char *form_str, t_flag *flag)
 			flag->padding = 2;
 		if (form_str[i] == '+')
 			flag->leading = '+';
-		if (form_str[i] == ' ' && flag->leading != '+' && flag->padding != 1)
+		if (form_str[i] == ' ' && flag->leading != '+')
 			flag->leading = ' ';
 		if (form_str[i] == '#')
 			flag->hash = 1;

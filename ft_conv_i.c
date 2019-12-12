@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:52:13 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/05 15:01:42 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/10 17:47:10 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,8 @@ static char	*ft_create_s(char *str, t_flag *flag, long long arg_int, int amount)
 {
 	int		size;
 	int		sign;
-	int		i;
 	char	fill;
 
-	i = 0;
 	size = (flag->width > amount) ? flag->width : amount;
 	sign = (arg_int < 0) ? '-' : flag->leading;
 	fill = (flag->precision == -1 && flag->padding == 2) ? '0' : ' ';
@@ -82,7 +80,7 @@ static char	*ft_create_s(char *str, t_flag *flag, long long arg_int, int amount)
 	if (sign != 0 && flag->padding == 0)
 		str[size - amount] = sign;
 	else if (sign != 0 && flag->padding != 0)
-		str[i] = sign;
+		str[0] = sign;
 	str = ft_cpy_str(str, flag, arg_int, amount);
 	return (str);
 }

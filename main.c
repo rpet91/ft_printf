@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:34:07 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/10 14:15:40 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/12 15:23:00 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,34 @@
 #include "libft.h"
 #include <locale.h>
 #include <limits.h>
+#include <math.h>
 
 int		main(void)
 {
 	setlocale(LC_NUMERIC, "en_US");
 	setlocale(LC_ALL, "");
+	int				a;
+	int				b;
 	wchar_t			*str;
 	wchar_t			*str2;
 	char			c;
 	int				i;
-	int				a;
-	int				b;
 	char			*s;
 	void			*ptr;
 	double			f;
+	long long		ll;
+	long			l;
+	unsigned int	u;
+	
 
-	i = 1235464;
-	f = 11/6;
+	u = 235;
+	ll = 3223372036654775200;
+	l = 4223372036854775800;
+	i = 1354;
+	f = -INFINITY;
 	c = 'R';
 	ptr = &i;
-	s = strdup("kaas");
+	s = "Remkoe";
 	str = malloc(sizeof(wchar_t) * 10);
 	str[0] = 'k';
 	str[1] = 'a';
@@ -49,16 +57,15 @@ int		main(void)
 	str[7] = 'p';
 	str[8] = 0x1F414;
 	str[9] = 0;
-	str2 = L"NULL";
-	ft_printf("[");
-	a = ft_printf("%lc", 0x7FA);
+	ft_printf("");
+	a = ft_printf("[%f", f);
 	printf("] | <--- mijn functie\n[");
-	b = printf("%lc", 0x7FA);
+	b = printf("%f", f);
 	printf("] | <--- echte printf\n");
 	printf("a: [%i]\n", a);
 	printf("b: [%i]\n", b);
 	free(str);
-	free(s);
+	//free(s);
 	//while(1);
 	return (0);
 }

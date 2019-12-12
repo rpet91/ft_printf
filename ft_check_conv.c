@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 11:17:00 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/10 11:05:10 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/10 16:26:28 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ t_list		*ft_check_conv(va_list args, t_flag *flag, int print_len)
 		return (ft_conv_x(args, flag));
 	else if (flag->conversion == 'n')
 		ft_conv_n(args, flag, print_len);
+	else if (flag->conversion == 'f')
+		return (ft_conv_f(args, flag));
 	return (NULL);
 }
