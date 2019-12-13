@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:51:19 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/13 12:14:59 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/13 17:43:50 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,7 @@ int						ft_conv_s(va_list args, t_flag *flag)
 
 	arg_str = ft_check_modifier(args, flag);
 	amount = ft_count_bytes_string(arg_str);
-	if (flag->precision == -1)
-		flag->precision = amount;
+	flag->precision = (flag->precision == -1) ? amount : flag->precision;
 	amount = (amount < flag->precision) ? amount : flag->precision;
 	size = (amount < flag->width) ? flag->width : amount;
 	str = malloc(sizeof(char) * (size + 1));

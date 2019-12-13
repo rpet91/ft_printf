@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 16:24:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/13 15:08:01 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/13 17:39:22 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,11 @@ static int		ft_check_width(va_list args, char *form_str, t_flag *flag)
 	if (*form_str == '*')
 	{
 		flag->width = va_arg(args, int);
+		if (flag->width < 0)
+		{
+			flag->width *= -1;
+			flag->padding = 1;
+		}
 		i = 1;
 	}
 	while (ft_isdigit(*form_str) == 1 && *form_str != '\0')

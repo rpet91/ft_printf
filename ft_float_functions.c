@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/13 07:58:31 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/13 11:22:23 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/13 18:09:43 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,3 +29,15 @@ unsigned long long	ft_create_dec_nb(double arg_dbl, t_flag *flag)
 	dec_nb = (temp < 5) ? dec_nb / 10 : (dec_nb / 10) + 1;
 	return (dec_nb);
 }
+
+/*iets				ft_check_specials(double arg_dbl)
+{
+	if (arg_dbl = 0xFFF0000000000000)
+		-inf
+	if (arg_dbl = 0x7FF0000000000000)
+		+inf
+	if (arg_dbl = 0x0)
+		+0;
+	if (arg_dbl = 0x8000000000000000)
+		-0;
+}*/

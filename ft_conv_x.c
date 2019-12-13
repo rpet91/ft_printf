@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:54:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/13 15:33:16 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/13 15:46:50 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,23 @@
 static char		*ft_fill_unsigned(unsigned long long arg_int, t_flag *flag,
 					int amount)
 {
-	int					i;
 	unsigned long long	temp;
 	char				*arg_str;
 	int					upp;
 
-	i = 0;
-	upp = (flag->conversion == 'X') ? 32 : 0;
-	temp = arg_int;
 	arg_str = malloc(sizeof(char) * (amount + 1));
 	if (arg_str == NULL)
 		return (NULL);
-	while (i < amount)
+	arg_str[amount] = '\0';
+	upp = (flag->conversion == 'X') ? 32 : 0;
+	temp = arg_int;
+	while (0 < amount)
 	{
+		amount--;
 		temp = arg_int % 16;
-		if (temp < 10)
-			arg_str[amount - (i + 1)] = '0' + temp;
-		else
-			arg_str[amount - (i + 1)] = 'a' + temp - 10 - upp;
+		arg_str[amount] = (temp < 10) ? '0' + temp : 'a' + temp - 10 - upp;
 		arg_int = arg_int / 16;
-		i++;
 	}
-	arg_str[i] = '\0';
 	return (arg_str);
 }
 
