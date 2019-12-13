@@ -6,15 +6,16 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:54:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/05 15:01:46 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/13 14:52:46 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include "libftprintf.h"
 
-static char		*ft_fill_unsigned(unsigned long long arg_int, int amount)
+static char	*ft_fill_unsigned(unsigned long long arg_int, int amount)
 {
 	int					i;
 	unsigned long long	temp;
@@ -39,8 +40,8 @@ static char		*ft_fill_unsigned(unsigned long long arg_int, int amount)
 	return (arg_str);
 }
 
-static char		*ft_create_s(char *str, t_flag *flag,
-					unsigned long long arg_int, int amount)
+static char	*ft_create_s(char *str, t_flag *flag,
+							unsigned long long arg_int, int amount)
 {
 	int		size;
 	int		i;
@@ -65,7 +66,7 @@ static char		*ft_create_s(char *str, t_flag *flag,
 	return (str);
 }
 
-static int		ft_xll_len(unsigned long long arg_int)
+static int	ft_xll_len(unsigned long long arg_int)
 {
 	int		i;
 
@@ -80,10 +81,9 @@ static int		ft_xll_len(unsigned long long arg_int)
 	return (i);
 }
 
-t_list			*ft_conv_p(va_list args, t_flag *flag)
+int			ft_conv_p(va_list args, t_flag *flag)
 {
 	char				*str;
-	t_list				*new;
 	unsigned long long	arg_int;
 	int					size;
 	int					amount;
@@ -96,7 +96,7 @@ t_list			*ft_conv_p(va_list args, t_flag *flag)
 		return (0);
 	amount = (flag->padding == 2) ? size : amount;
 	str = ft_create_s(str, flag, arg_int, amount);
-	new = ft_new_element(str, size);
-	flag->print_len += size;
-	return (new);
+	write(1, str, size);
+	free(str);
+	return (size);
 }

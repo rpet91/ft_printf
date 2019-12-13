@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 11:17:00 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/10 16:26:28 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/13 11:52:25 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "libftprintf.h"
 
-t_list		*ft_check_conv(va_list args, t_flag *flag, int print_len)
+int		ft_check_conv(va_list args, t_flag *flag, int print_len)
 {
 	if (flag->conversion == 'c' || flag->conversion == '%')
 		return (ft_conv_c(args, flag));
@@ -32,5 +32,5 @@ t_list		*ft_check_conv(va_list args, t_flag *flag, int print_len)
 		ft_conv_n(args, flag, print_len);
 	else if (flag->conversion == 'f')
 		return (ft_conv_f(args, flag));
-	return (NULL);
+	return (0);
 }

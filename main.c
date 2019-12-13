@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:34:07 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/13 10:44:25 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/13 15:14:55 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@
 
 int		main(void)
 {
-	setlocale(LC_NUMERIC, "en_US");
-	setlocale(LC_ALL, "");
+	setlocale(LC_ALL, "en_US");
 	int				a;
 	int				b;
 	wchar_t			*str;
@@ -42,9 +41,9 @@ int		main(void)
 	u = 235;
 	ll = 3223372036654775200;
 	l = 4223372036854775800;
-	i = 1354;
+	i = 13545464;
 	f1 = -INFINITY;
-	f2 = 3.99999991;
+	f2 = 43593433.99999991;
 	c = 'R';
 	ptr = &i;
 	s = "Remkoe";
@@ -59,10 +58,10 @@ int		main(void)
 	str[7] = 'p';
 	str[8] = 0x1F414;
 	str[9] = 0;
-	ft_printf("");
-	a = ft_printf("[%f", f2);
+	ft_printf("[");
+	a = ft_printf("%'f", f2);
 	printf("] | <--- mijn functie\n[");
-	b = printf("%f", f2);
+	b = printf("%'f", f2);
 	printf("] | <--- echte printf\n");
 	printf("a: [%i]\n", a);
 	printf("b: [%i]\n", b);

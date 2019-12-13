@@ -6,10 +6,11 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:51:19 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/12 16:43:20 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/13 12:14:59 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <wchar.h>
@@ -86,11 +87,10 @@ static wchar_t			*ft_check_modifier(va_list args, t_flag *flag)
 	return (arg_wstr);
 }
 
-t_list					*ft_conv_s(va_list args, t_flag *flag)
+int						ft_conv_s(va_list args, t_flag *flag)
 {
 	unsigned char	*str;
 	wchar_t			*arg_str;
-	t_list			*new;
 	int				size;
 	int				amount;
 
@@ -102,10 +102,9 @@ t_list					*ft_conv_s(va_list args, t_flag *flag)
 	size = (amount < flag->width) ? flag->width : amount;
 	str = malloc(sizeof(char) * (size + 1));
 	if (str == NULL)
-		return (NULL);
+		return (0);
 	str = ft_create_str(str, arg_str, flag, amount);
-	new = ft_new_element(str, size);
-	flag->print_len += size;
-	free(arg_str);
-	return (new);
+	write(1, str, size);
+	free(str);
+	return (size);
 }

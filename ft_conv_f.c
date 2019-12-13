@@ -6,10 +6,11 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/10 15:06:10 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/13 11:23:46 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/13 14:46:27 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include "libftprintf.h"
@@ -44,17 +45,17 @@ static int	ft_put_dec_nb(char *str, t_flag *flag, double arg_dbl, int amount)
 	return (rounding);
 }
 
-static char	*ft_put_front_nb(unsigned long long front_nb, t_flag *flag, int sign)
+static char	*ft_put_front_nb(unsigned long long front, t_flag *flag, int sign)
 {
 	int		i;
 	int		size;
 	char	*arg_str;
 
-	i = 0;
-	size = ft_intlen(front_nb) + sign;
+	size = ft_intlen(front) + sign + flag->decimal;
 	arg_str = malloc(sizeof(char) * (size + 1));
 	if (arg_str == NULL)
 		return (NULL);
+	i = 0;
 	while (i < size)
 	{
 		if (flag->decimal > 0 && i % 4 == 3)
@@ -64,8 +65,8 @@ static char	*ft_put_front_nb(unsigned long long front_nb, t_flag *flag, int sign
 		}
 		else
 		{
-			arg_str[size - (i + 1)] = front_nb % 10 + '0';
-			front_nb = front_nb / 10;
+			arg_str[size - (i + 1)] = front % 10 + '0';
+			front = front / 10;
 		}
 		i++;
 	}
@@ -87,7 +88,7 @@ static char	*ft_cpy_str(char *str, t_flag *flag, double arg_dbl, int amount)
 	front_nb += ft_put_dec_nb(str, flag, arg_dbl, amount);
 	arg_str = ft_put_front_nb(front_nb, flag, sign);
 	i = sign;
-	while (i < ft_intlen(front_nb) + sign)
+	while (i < (int)ft_strlen(arg_str))
 	{
 		if (flag->padding == 1)
 			str[i] = arg_str[i];
@@ -121,19 +122,18 @@ static char	*ft_create_s(char *str, t_flag *flag, double arg_dbl, int amount)
 	return (str);
 }
 
-t_list		*ft_conv_f(va_list args, t_flag *flag)
+int			ft_conv_f(va_list args, t_flag *flag)
 {
 	char		*str;
-	t_list		*new;
 	double		arg_dbl;
 	int			size;
 	int			amount;
 
 	arg_dbl = va_arg(args, double);
 	flag->precision = (flag->precision == -1) ? 6 : flag->precision;
-	amount = (int)arg_dbl;
-	amount = (arg_dbl < 0) ? ft_intlen(-amount) : ft_intlen(amount);
-	amount += (flag->decimal == 1) ? (amount - 1) / 3 : 0;
+	amount = (arg_dbl < 0) ? ft_intlen(-arg_dbl) : ft_intlen(arg_dbl);
+	flag->decimal = (flag->decimal == 1) ? (amount - 1) / 3 : 0;
+	amount += flag->decimal;
 	amount += (flag->precision == 0) ? 0 : flag->precision + 1;
 	amount += (flag->leading != 0 || arg_dbl < 0) ? 1 : 0;
 	amount += (flag->hash == 1 && flag->precision == 0) ? 1 : 0;
@@ -142,7 +142,7 @@ t_list		*ft_conv_f(va_list args, t_flag *flag)
 	if (str == NULL)
 		return (0);
 	str = ft_create_s(str, flag, arg_dbl, amount);
-	new = ft_new_element(str, size);
-	flag->print_len += size;
-	return (new);
+	write(1, str, size);
+	free(str);
+	return (size);
 }

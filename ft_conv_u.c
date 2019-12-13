@@ -6,10 +6,11 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:52:40 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/05 15:01:53 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/13 12:16:07 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include "libftprintf.h"
@@ -85,10 +86,9 @@ static void	ft_apply_modifier(unsigned long long *arg_int, t_flag *flag)
 		*arg_int = (unsigned long long)(unsigned char)*arg_int;
 }
 
-t_list		*ft_conv_u(va_list args, t_flag *flag)
+int			ft_conv_u(va_list args, t_flag *flag)
 {
 	char				*str;
-	t_list				*new;
 	unsigned long long	arg_int;
 	int					size;
 	int					amount;
@@ -106,7 +106,7 @@ t_list		*ft_conv_u(va_list args, t_flag *flag)
 	if (str == NULL)
 		return (0);
 	str = ft_create_s(str, flag, arg_int, amount);
-	new = ft_new_element(str, size);
-	flag->print_len += size;
-	return (new);
+	write(1, str, size);
+	free(str);
+	return (size);
 }

@@ -6,10 +6,11 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:51:08 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/09 16:14:06 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/13 12:13:52 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <wchar.h>
@@ -45,22 +46,21 @@ static unsigned char	*ft_fill_str(unsigned char *result,
 	return (result);
 }
 
-t_list					*ft_conv_c(va_list args, t_flag *flag)
+int						ft_conv_c(va_list args, t_flag *flag)
 {
 	wchar_t			c;
-	unsigned char	*result;
-	t_list			*new;
+	unsigned char	*str;
 	int				size;
 
 	c = (flag->conversion == '%') ? '%' : (wchar_t)va_arg(args, wint_t);
 	if (flag->width == 0)
 		flag->width = 1;
 	size = (ft_count_bytes(c) > flag->width) ? ft_count_bytes(c) : flag->width;
-	result = malloc(sizeof(char) * (size + 1));
-	if (result == NULL)
+	str = malloc(sizeof(char) * (size + 1));
+	if (str == NULL)
 		return (0);
-	result = ft_fill_str(result, flag, c, size);
-	new = ft_new_element(result, size);
-	flag->print_len += size;
-	return (new);
+	str = ft_fill_str(str, flag, c, size);
+	write(1, str, size);
+	free(str);
+	return (size);
 }

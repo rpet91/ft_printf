@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/06 13:47:02 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/12 16:43:44 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/13 14:55:59 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <wchar.h>
 #include "libft.h"
 
-wchar_t			*ft_wstrdup(wchar_t *wstr)
+wchar_t		*ft_wstrdup(wchar_t *wstr)
 {
 	wchar_t		*ret;
 	int			i;
@@ -35,7 +35,7 @@ wchar_t			*ft_wstrdup(wchar_t *wstr)
 	return (ret);
 }
 
-wchar_t			*ft_str_to_wstr(char *str)
+wchar_t		*ft_str_to_wstr(char *str)
 {
 	wchar_t		*ret;
 	int			i;
@@ -53,7 +53,7 @@ wchar_t			*ft_str_to_wstr(char *str)
 	return (ret);
 }
 
-static int		ft_convert_to_wchar(wchar_t arg_char, unsigned char *str)
+static int	ft_convert_to_wchar(wchar_t arg_char, unsigned char *str)
 {
 	if (arg_char <= 0x7F)
 	{
@@ -80,20 +80,20 @@ static int		ft_convert_to_wchar(wchar_t arg_char, unsigned char *str)
 	return (4);
 }
 
-void			ft_wstr_to_str(wchar_t *wstr, unsigned char *str, int size)
+void		ft_wstr_to_str(wchar_t *wstr, unsigned char *str, int size)
 {
 	int		i;
 
 	i = 0;
 	while (i < size)
-	{	
+	{
 		str += ft_convert_to_wchar(wstr[i], str);
 		i++;
 	}
 	*str = '\0';
 }
 
-int				ft_count_bytes(wchar_t wchar)
+int			ft_count_bytes(wchar_t wchar)
 {
 	if (wchar <= 0x7F)
 		return (1);

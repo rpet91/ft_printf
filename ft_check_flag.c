@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 16:24:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/12 13:39:41 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/13 15:08:01 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 ** modifier = 4 --> found hh
 */
 
-int			ft_check_modifier(const char *form_str, t_flag *flag)
+static int		ft_check_modifier(char *form_str, t_flag *flag)
 {
 	if (*form_str == 'l' && *(form_str + 1) != 'l')
 	{
@@ -67,7 +67,7 @@ int			ft_check_modifier(const char *form_str, t_flag *flag)
 	return (0);
 }
 
-int			ft_check_precision(va_list args, const char *form_str, t_flag *flag)
+static int		ft_check_precision(va_list args, char *form_str, t_flag *flag)
 {
 	int		i;
 
@@ -80,7 +80,7 @@ int			ft_check_precision(va_list args, const char *form_str, t_flag *flag)
 		flag->precision = va_arg(args, int);
 		i = 2;
 	}
-	while (ft_isdigit(*form_str) == 1)
+	while (ft_isdigit(*form_str) == 1 && *form_str != '\0')
 	{
 		flag->precision = flag->precision * 10 + *form_str - '0';
 		form_str++;
@@ -90,7 +90,7 @@ int			ft_check_precision(va_list args, const char *form_str, t_flag *flag)
 	return (i);
 }
 
-int			ft_check_width(va_list args, const char *form_str, t_flag *flag)
+static int		ft_check_width(va_list args, char *form_str, t_flag *flag)
 {
 	int		i;
 
@@ -100,7 +100,7 @@ int			ft_check_width(va_list args, const char *form_str, t_flag *flag)
 		flag->width = va_arg(args, int);
 		i = 1;
 	}
-	while (ft_isdigit(*form_str) == 1)
+	while (ft_isdigit(*form_str) == 1 && *form_str != '\0')
 	{
 		flag->width = flag->width * 10 + *form_str - '0';
 		form_str++;
@@ -110,12 +110,12 @@ int			ft_check_width(va_list args, const char *form_str, t_flag *flag)
 	return (i);
 }
 
-int			ft_check_flags(const char *form_str, t_flag *flag)
+static int		ft_check_flags(char *form_str, t_flag *flag)
 {
 	int		i;
 
 	i = 0;
-	while (ft_strchr("-0+ #'", form_str[i]))
+	while (ft_strchr("-0+ #'", form_str[i]) && form_str[i] != '\0')
 	{
 		if (form_str[i] == '-')
 			flag->padding = 1;
@@ -135,7 +135,7 @@ int			ft_check_flags(const char *form_str, t_flag *flag)
 	return (i);
 }
 
-void		ft_check_flag(va_list args, const char *form_str, t_flag *flag)
+void			ft_check_flag(va_list args, char *form_str, t_flag *flag)
 {
 	int			str_i;
 
