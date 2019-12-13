@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:34:07 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/12 15:23:00 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/13 10:44:25 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int		main(void)
 	int				i;
 	char			*s;
 	void			*ptr;
-	double			f;
+	double			f1;
+	double			f2;
 	long long		ll;
 	long			l;
 	unsigned int	u;
@@ -42,7 +43,8 @@ int		main(void)
 	ll = 3223372036654775200;
 	l = 4223372036854775800;
 	i = 1354;
-	f = -INFINITY;
+	f1 = -INFINITY;
+	f2 = 3.99999991;
 	c = 'R';
 	ptr = &i;
 	s = "Remkoe";
@@ -58,9 +60,9 @@ int		main(void)
 	str[8] = 0x1F414;
 	str[9] = 0;
 	ft_printf("");
-	a = ft_printf("[%f", f);
+	a = ft_printf("[%f", f2);
 	printf("] | <--- mijn functie\n[");
-	b = printf("%f", f);
+	b = printf("%f", f2);
 	printf("] | <--- echte printf\n");
 	printf("a: [%i]\n", a);
 	printf("b: [%i]\n", b);

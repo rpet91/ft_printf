@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 10:14:36 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/10 16:21:13 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/13 11:21:48 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,10 @@ void				ft_conv_n(va_list args, t_flag *flag, int print_len);
 t_list				*ft_conv_f(va_list args, t_flag *flag);
 char				*ft_filling(char *str, char fill, int size);
 wchar_t				*ft_wfilling(wchar_t *str, char fill, int size);
-int					ft_count_bytes(wchar_t wchar);
-void				ft_wstr_to_str(wchar_t *wstr, unsigned char *str, int size);
-wchar_t				*ft_str_to_wstr(char *str);
 wchar_t				*ft_wstrdup(wchar_t *wstr);
+wchar_t				*ft_str_to_wstr(char *str);
+void				ft_wstr_to_str(wchar_t *wstr, unsigned char *str, int size);
+int					ft_count_bytes(wchar_t wchar);
+unsigned long long	ft_create_dec_nb(double arg_dbl, t_flag *flag);
 
 #endif
