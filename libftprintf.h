@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 10:14:36 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/13 14:56:55 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/16 16:07:17 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,7 @@ wchar_t				*ft_str_to_wstr(char *str);
 void				ft_wstr_to_str(wchar_t *wstr, unsigned char *str, int size);
 int					ft_count_bytes(wchar_t wchar);
 unsigned long long	ft_create_dec_nb(double arg_dbl, t_flag *flag);
+int					ft_check_special(double arg_dbl, t_flag *flag);
+char				*ft_create_special(double arg_dbl, char *str, t_flag *flag);
 
 #endif

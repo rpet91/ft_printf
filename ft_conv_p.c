@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:54:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/13 14:52:46 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/16 17:07:51 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static char	*ft_create_s(char *str, t_flag *flag,
 	return (str);
 }
 
-static int	ft_xll_len(unsigned long long arg_int)
+static int	ft_hexlen(unsigned long long arg_int)
 {
 	int		i;
 
@@ -89,7 +89,9 @@ int			ft_conv_p(va_list args, t_flag *flag)
 	int					amount;
 
 	arg_int = (unsigned long long)va_arg(args, void*);
-	amount = ft_xll_len(arg_int) + 2;
+	amount = ft_hexlen(arg_int) + 2;
+	amount = (amount > flag->precision) ? amount : flag->precision + 2;
+	amount = (arg_int == 0 && flag->precision == 0) ? 2 : amount;
 	size = (flag->width > amount) ? flag->width : amount;
 	str = malloc(sizeof(char) * (size + 1));
 	if (str == NULL)

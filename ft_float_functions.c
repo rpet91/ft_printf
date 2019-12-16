@@ -6,11 +6,13 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/13 07:58:31 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/13 18:09:43 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/16 16:48:42 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+#include "libft.h"
+#include <stdio.h>
 
 unsigned long long	ft_create_dec_nb(double arg_dbl, t_flag *flag)
 {
@@ -30,14 +32,52 @@ unsigned long long	ft_create_dec_nb(double arg_dbl, t_flag *flag)
 	return (dec_nb);
 }
 
-/*iets				ft_check_specials(double arg_dbl)
+int					ft_check_special(double arg_dbl, t_flag *flag)
 {
-	if (arg_dbl = 0xFFF0000000000000)
-		-inf
-	if (arg_dbl = 0x7FF0000000000000)
-		+inf
-	if (arg_dbl = 0x0)
-		+0;
-	if (arg_dbl = 0x8000000000000000)
-		-0;
-}*/
+	unsigned long long	temp;
+	int					amount;
+
+	temp = *(unsigned long long *)&arg_dbl;
+	amount = 0;
+	if (temp == 0x7FF0000000000000)
+		amount = 3 + (flag->leading > 0);
+	if (temp == 0xFFF0000000000000)
+		amount = 4;
+	if (temp >= 0x7FF0000000000001 && temp <= 0x7FFFFFFFFFFFFFFF)
+	{
+		flag->leading = 0;
+		amount = 3;
+	}
+	if (temp == 0x8000000000000000)
+		flag->leading = '-';
+	if (amount != 0 && flag->padding == 2)
+		flag->padding = 0;
+	flag->precision = (amount != 0) ? 0 : flag->precision;
+	return (amount);
+}
+
+char				*ft_create_special(double arg_dbl, char *str, t_flag *flag)
+{
+	unsigned long long	temp;
+	char				*arg_str;
+	int					i;
+	int					sign;
+
+	temp = *(unsigned long long *)&arg_dbl;
+	if (temp == 0x7FF0000000000000 || temp == 0xFFF0000000000000)
+		arg_str = ft_strdup("inf");
+	else
+		arg_str = ft_strdup("nan");
+	i = 0;
+	sign = (flag->leading != 0 || temp == 0xFFF0000000000000) ? 1 : 0;
+	while (i < 3)
+	{
+		if (flag->padding == 1)
+			str[i + sign] = arg_str[i];
+		else
+			str[i + ft_strlen(str) - 3] = arg_str[i];
+		i++;
+	}
+	free(arg_str);
+	return (str);
+}
