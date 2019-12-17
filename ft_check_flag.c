@@ -6,26 +6,24 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 16:24:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/13 17:39:22 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/17 13:49:57 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include "libftprintf.h"
-#include "libft.h"
-#include <stdio.h>
 
 /*
-** padding = 0 --> default, didn't find a - and 0
+** padding = 0 --> didn't find -/0
 ** padding = 1 --> found a -
 ** padding = 2 --> found a 0 and not a -
-** leading = 0 --> default, didn't find a space and a +
+** leading = 0 --> didn't find +/'_'
 ** leading = 1 --> found a +
-** leading = 2 --> found a space and not a + and -
+** leading = 2 --> found a space and not a +
 ** hash = 0 --> didn't find a #
 ** hash = 1 --> found a #
-** decimal = 0 --> didn't find a '
-** decimal = 1 --> found a '
+** decimal = 0 --> didn't find an '
+** decimal = 1 --> found an '
 ** width = 0 --> didn't find a * or number
 ** width = number --> found a * or number
 ** precision = -1 --> no precision found

@@ -6,18 +6,13 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 09:45:38 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/13 15:01:50 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/17 16:35:36 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
-#include <stdio.h>
-#include <string.h>
-#include "libftprintf.h"
-#include "libft.h"
 #include <stdlib.h>
-#include <unistd.h>
-#include <locale.h>
+#include "libftprintf.h"
 
 int			ft_printf(const char *format, ...)
 {
@@ -26,7 +21,7 @@ int			ft_printf(const char *format, ...)
 	char		*format_string;
 	int			print_len;
 
-	format_string = ft_strdup(format);
+	format_string = (char *)format;
 	print_len = 0;
 	va_start(args, format);
 	while (*format_string)

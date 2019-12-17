@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:34:07 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/16 17:08:48 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/17 18:10:57 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include "libftprintf.h"
-#include "libft.h"
 #include <locale.h>
 #include <limits.h>
 #include <math.h>
@@ -47,10 +46,10 @@ int		main(void)
 	l = 4223372036854775800;
 	i = 13545464;
 	f1 = -INFINITY;
-	f2 = 2421.02510421;
+	f2 = -2396421.02510421;
 	c = 'R';
 	ptr = &i;
-	s = "Remkoe";
+	s = "R";
 	str = malloc(sizeof(wchar_t) * 10);
 	str[0] = 'k';
 	str[1] = 'a';
@@ -63,14 +62,13 @@ int		main(void)
 	str[8] = 0x1F414;
 	str[9] = 0;
 	ft_printf("[");
-	a = ft_printf("%i", 10);
+	a = ft_printf("%.14ls", str);
 	printf("] | <--- mijn functie\n[");
-	b = printf("%i", 10);
+	b = printf("%.14ls", str);
 	printf("] | <--- echte printf\n");
 	printf("a: [%i]\n", a);
 	printf("b: [%i]\n", b);
 	free(str);
-	//free(s);
 	//while(1);
 	return (0);
 }

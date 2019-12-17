@@ -6,13 +6,13 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/06 13:47:02 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/13 14:55:59 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/17 16:21:41 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <wchar.h>
-#include "libft.h"
+#include "libftprintf.h"
 
 wchar_t		*ft_wstrdup(wchar_t *wstr)
 {

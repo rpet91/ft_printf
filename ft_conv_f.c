@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/10 15:06:10 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/16 16:44:28 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/17 16:05:07 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,17 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include "libftprintf.h"
-#include "libft.h"
-#include <stdio.h>
 
 static int	ft_put_dec_nb(char *str, t_flag *flag, double arg_dbl, int amount)
 {
 	int							i;
 	int							rounding;
 	unsigned long long			dec_nb;
-	char						*arg_dec;
 
-	arg_dec = malloc(sizeof(char) * (flag->precision + 1));
-	if (arg_dec == NULL)
-		return (0);
 	arg_dbl *= (arg_dbl < 0) ? -1 : 1;
 	dec_nb = ft_create_dec_nb(arg_dbl, flag);
-	rounding = ft_intlen(dec_nb);
 	i = 0;
+	rounding = ft_intlen(dec_nb);
 	while (i < flag->precision)
 	{
 		if (flag->padding == 1)
@@ -45,39 +39,11 @@ static int	ft_put_dec_nb(char *str, t_flag *flag, double arg_dbl, int amount)
 	return (rounding);
 }
 
-static char	*ft_put_front_nb(unsigned long long front, t_flag *flag, int sign)
-{
-	int		i;
-	int		size;
-	char	*arg_str;
-
-	size = ft_intlen(front) + sign + flag->decimal;
-	arg_str = malloc(sizeof(char) * (size + 1));
-	if (arg_str == NULL)
-		return (NULL);
-	i = 0;
-	while (i < size)
-	{
-		if (flag->decimal > 0 && i % 4 == 3)
-		{
-			arg_str[size - (i + 1)] = ',';
-			flag->decimal--;
-		}
-		else
-		{
-			arg_str[size - (i + 1)] = front % 10 + '0';
-			front = front / 10;
-		}
-		i++;
-	}
-	arg_str[i] = '\0';
-	return (arg_str);
-}
-
 static char	*ft_cpy_str(char *str, t_flag *flag, double arg_dbl, int amount)
 {
 	int					i;
 	int					size;
+	int					front_size;
 	unsigned long long	front_nb;
 	char				*arg_str;
 
@@ -85,8 +51,9 @@ static char	*ft_cpy_str(char *str, t_flag *flag, double arg_dbl, int amount)
 	i = (arg_dbl < 0 || flag->leading != 0) ? 1 : 0;
 	front_nb = (arg_dbl < 0) ? -arg_dbl : arg_dbl;
 	front_nb += ft_put_dec_nb(str, flag, arg_dbl, amount);
-	arg_str = ft_put_front_nb(front_nb, flag, i);
-	while (i < (int)ft_strlen(arg_str))
+	front_size = ft_intlen(front_nb) + i + flag->decimal;
+	arg_str = ft_itoa_dec(front_nb, front_size, flag->decimal);
+	while (i < front_size)
 	{
 		if (flag->padding == 1)
 			str[i] = arg_str[i];

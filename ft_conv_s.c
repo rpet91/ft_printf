@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:51:19 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/13 17:43:50 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/17 18:10:54 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 #include <stdlib.h>
 #include <wchar.h>
 #include "libftprintf.h"
-#include "libft.h"
+
 #include <stdio.h>
-#include <locale.h>
 
 static unsigned char	*ft_create_str(unsigned char *str, wchar_t *arg_str,
-				t_flag *flag, int amount)
+							t_flag *flag, int amount)
 {
 	int			i;
 	int			size;
@@ -42,13 +41,12 @@ static unsigned char	*ft_create_str(unsigned char *str, wchar_t *arg_str,
 			wstr[i + (size - amount)] = arg_str[i];
 		i++;
 	}
-	wstr[size] = '\0';
 	ft_wstr_to_str(wstr, str, size);
 	free(wstr);
 	return (str);
 }
 
-static int				ft_count_bytes_string(wchar_t *arg_str)
+static int				ft_count_bytes_string(wchar_t *arg_str, t_flag *flag)
 {
 	int		i;
 	int		size;
@@ -58,6 +56,11 @@ static int				ft_count_bytes_string(wchar_t *arg_str)
 	while (arg_str[i] != '\0')
 	{
 		size += ft_count_bytes(arg_str[i]);
+		if (size > flag->precision && flag->precision != -1)
+		{
+			size -= ft_count_bytes(arg_str[i]);
+			break;	
+		}
 		i++;
 	}
 	return (size);
@@ -95,7 +98,7 @@ int						ft_conv_s(va_list args, t_flag *flag)
 	int				amount;
 
 	arg_str = ft_check_modifier(args, flag);
-	amount = ft_count_bytes_string(arg_str);
+	amount = ft_count_bytes_string(arg_str, flag);
 	flag->precision = (flag->precision == -1) ? amount : flag->precision;
 	amount = (amount < flag->precision) ? amount : flag->precision;
 	size = (amount < flag->width) ? flag->width : amount;
@@ -103,6 +106,7 @@ int						ft_conv_s(va_list args, t_flag *flag)
 	if (str == NULL)
 		return (0);
 	str = ft_create_str(str, arg_str, flag, amount);
+	free(arg_str);
 	write(1, str, size);
 	free(str);
 	return (size);

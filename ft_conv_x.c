@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:54:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/13 15:46:50 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/17 11:25:50 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,7 @@ static char		*ft_create_s(char *str, t_flag *flag,
 	i = 0;
 	if (flag->hash == 1 && arg_int != 0)
 		arg_str[1] = flag->conversion;
-	while (i < amount)
-	{
-		if (flag->padding == 1)
-			str[i] = arg_str[i];
-		else
-			str[i + (size - amount)] = arg_str[i];
-		i++;
-	}
+	str = ft_strmerge(str, arg_str, flag->padding, 0);
 	free(arg_str);
 	return (str);
 }

@@ -6,13 +6,12 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/13 07:58:31 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/16 16:48:42 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/17 16:19:09 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libftprintf.h"
-#include "libft.h"
-#include <stdio.h>
 
 unsigned long long	ft_create_dec_nb(double arg_dbl, t_flag *flag)
 {

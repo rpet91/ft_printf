@@ -6,14 +6,13 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/22 15:29:33 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/13 18:09:44 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/17 16:13:47 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
 #include "libftprintf.h"
-#include "libft.h"
 
 int		ft_create_string(const char *format, t_flag *flag)
 {
@@ -27,7 +26,7 @@ int		ft_create_string(const char *format, t_flag *flag)
 	if (str == NULL)
 		return (0);
 	str[size] = '\0';
-	ft_memcpy(str, format, size);
+	ft_memcpy(str, format, (size_t)size);
 	flag->flag_len = size;
 	write(1, str, size);
 	free(str);

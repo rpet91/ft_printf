@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:54:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/16 17:07:51 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/17 11:23:12 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,7 @@ static char	*ft_create_s(char *str, t_flag *flag,
 	arg_str = ft_fill_unsigned(arg_int, amount);
 	i = 0;
 	arg_str[1] = 'x';
-	while (i < amount)
-	{
-		if (flag->padding == 1)
-			str[i] = arg_str[i];
-		else
-			str[i + (size - amount)] = arg_str[i];
-		i++;
-	}
+	str = ft_strmerge(str, arg_str, flag->padding, 0);
 	free(arg_str);
 	return (str);
 }
