@@ -6,17 +6,17 @@
 #    By: rpet <marvin@codam.nl>                       +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/13 09:40:33 by rpet          #+#    #+#                  #
-#    Updated: 2019/12/17 16:25:03 by rpet          ########   odam.nl          #
+#    Updated: 2019/12/18 11:21:59 by rpet          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 SRCS = ft_printf.c ft_empty_flag.c ft_check_flag.c ft_check_conv.c \
 	   ft_create_string.c ft_conv_c.c ft_conv_s.c ft_conv_p.c ft_conv_i.c \
-	   ft_conv_u.c ft_conv_x.c ft_conv_n.c ft_conv_f.c ft_build_string.c \
-	   ft_wchar_functions.c ft_float_functions.c
+	   ft_conv_u.c ft_conv_x.c ft_conv_n.c ft_conv_f.c ft_conv_e.c \
+	   ft_build_string.c ft_wchar_functions.c ft_float_functions.c
 OBJS = $(SRCS:.c=.o)
-LIBDIR = libft
+LIBDIR = libft/
 FLAGS = -Wall -Wextra -Werror
 
 .PHONY: all clean fclean re bonus
@@ -29,7 +29,7 @@ $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 %.o: %.c
-	gcc -c $? -o $@ -I. -I$(LIBDIR) $(FLAGS)
+	gcc -c $? -o $@ -I. $(FLAGS)
 
 clean:
 	cd $(LIBDIR) && make clean

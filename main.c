@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:34:07 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/17 18:10:57 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/18 17:41:02 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,43 +32,36 @@ int		main(void)
 	void				*ptr;
 	double				f1;
 	double				f2;
-	double				f3;
 	long long			ll;
 	long				l;
 	unsigned long long	u;
 	double				u1;
 
 //	u = 0x7FF0000000000000; //inf
-	u = 0xFFF0000000000000; //-inf
+//	u = 0xFFF0000000000000; //-inf
 //	u = 0x7FF0000000000001; //nan
+	u = 0x8000000000000000; //-0
 	u1 = *(double *)&u;
 	ll = 3223372036654775200;
 	l = 4223372036854775800;
 	i = 13545464;
-	f1 = -INFINITY;
+	f1 = 1.001;
 	f2 = -2396421.02510421;
 	c = 'R';
 	ptr = &i;
-	s = "R";
-	str = malloc(sizeof(wchar_t) * 10);
-	str[0] = 'k';
-	str[1] = 'a';
-	str[2] = 'a';
-	str[3] = 's';
-	str[4] = 0x1F9C0;
-	str[5] = 'k';
-	str[6] = 'i';
-	str[7] = 'p';
-	str[8] = 0x1F414;
-	str[9] = 0;
+	s = strdup("Remkoe");
+	str = ft_wstrdup(L"egg plant ");
+	str[3] = 0x1F95A;
+	str[9] = 0x1F331;
 	ft_printf("[");
-	a = ft_printf("%.14ls", str);
+	a = ft_printf("%.0f", 1.5);
 	printf("] | <--- mijn functie\n[");
-	b = printf("%.14ls", str);
+	b = printf("%.0f", 1.5);
 	printf("] | <--- echte printf\n");
 	printf("a: [%i]\n", a);
 	printf("b: [%i]\n", b);
 	free(str);
+	free(s);
 	//while(1);
 	return (0);
 }

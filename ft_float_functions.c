@@ -6,12 +6,41 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/13 07:58:31 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/17 16:19:09 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/18 17:36:18 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libftprintf.h"
+#include <stdio.h>
+
+char				*ft_create_exponent(double arg_dbl)
+{
+	int		e1;
+	int		e2;
+	char	sign;
+	char	*exp;
+
+	e1 = 0;
+	exp = ft_strdup("e 00");
+	sign = (arg_dbl >= 1) ? '+' : '-';
+	exp[1] = sign;
+	while (arg_dbl > 9)
+	{
+		arg_dbl /= 10;
+		e1++;
+	}
+	while (arg_dbl < 1)
+	{
+		arg_dbl *= 10;
+		e1++;
+	}
+	e2 = e1 / 10;
+	exp[2] = (char)e2 + '0';
+	exp[3] = (char)(e1 - e2) + '0';
+	printf("exp: [%s]\n", exp);
+	return (exp);
+}
 
 unsigned long long	ft_create_dec_nb(double arg_dbl, t_flag *flag)
 {
@@ -79,4 +108,17 @@ char				*ft_create_special(double arg_dbl, char *str, t_flag *flag)
 	}
 	free(arg_str);
 	return (str);
+}
+
+int					ft_rounding(double arg_dbl, t_flag *flag)
+{
+	int			rounding;
+	unsigned	dec_nb;
+
+	arg_dbl *= (arg_dbl < 0) ? -1 : 1;
+	dec_nb = ft_create_dec_nb(arg_dbl, flag);
+	rounding = ft_intlen(dec_nb);
+	rounding = (flag->precision == 0 || (flag->precision < rounding)) ? 1 : 0;
+	rounding *= (arg_dbl - (unsigned long long)arg_dbl >= 0.5) ? 1 : 0;
+	return (rounding);
 }

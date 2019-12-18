@@ -6,10 +6,11 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/05 07:50:43 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/17 09:11:24 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/18 16:45:37 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libftprintf.h"
 
 static void	ft_apply_modifier(long long **amount, t_flag *flag)
@@ -29,6 +30,8 @@ void		ft_conv_n(va_list args, t_flag *flag, int print_len)
 	long long			*amount;
 
 	amount = (long long *)va_arg(args, int *);
+	if (amount == NULL)
+		return ;
 	ft_apply_modifier(&amount, flag);
 	*amount = (long long)print_len;
 }

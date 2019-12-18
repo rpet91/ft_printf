@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/06 13:47:02 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/17 16:21:41 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/18 16:59:12 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,12 @@ static int	ft_convert_to_wchar(wchar_t arg_char, unsigned char *str)
 
 void		ft_wstr_to_str(wchar_t *wstr, unsigned char *str, int size)
 {
-	int		i;
+	int				i;
+	unsigned char	*start;
 
 	i = 0;
-	while (i < size)
+	start = str;
+	while (str - start < size)
 	{
 		str += ft_convert_to_wchar(wstr[i], str);
 		i++;

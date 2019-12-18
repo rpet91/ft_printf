@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/02 15:18:20 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/17 13:41:59 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/18 17:02:22 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <wchar.h>
 #include "libftprintf.h"
 
-char	*ft_filling(char *str, char fill, int size)
+char		*ft_filling(char *str, char fill, int size)
 {
 	int		i;
 
@@ -28,7 +28,7 @@ char	*ft_filling(char *str, char fill, int size)
 	return (str);
 }
 
-wchar_t	*ft_wfilling(wchar_t *str, char fill, int size)
+wchar_t		*ft_wfilling(wchar_t *str, char fill, int size)
 {
 	int		i;
 
@@ -42,7 +42,7 @@ wchar_t	*ft_wfilling(wchar_t *str, char fill, int size)
 	return (str);
 }
 
-char	*ft_strmerge(char *dst, char *src, int padding, int sign)
+char		*ft_strmerge(char *dst, char *src, int padding, int sign)
 {
 	int		i;
 	int		size;
@@ -62,7 +62,7 @@ char	*ft_strmerge(char *dst, char *src, int padding, int sign)
 	return (dst);
 }
 
-char	*ft_itoa_dec(unsigned long long arg_int, int size, int dec)
+char		*ft_itoa_dec(unsigned long long arg_int, int size, int dec)
 {
 	int		i;
 	char	*arg_str;

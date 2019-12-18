@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:51:19 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/17 18:10:54 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/18 17:13:15 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 #include <stdlib.h>
 #include <wchar.h>
 #include "libftprintf.h"
-
-#include <stdio.h>
 
 static unsigned char	*ft_create_str(unsigned char *str, wchar_t *arg_str,
 							t_flag *flag, int amount)
@@ -59,7 +57,7 @@ static int				ft_count_bytes_string(wchar_t *arg_str, t_flag *flag)
 		if (size > flag->precision && flag->precision != -1)
 		{
 			size -= ft_count_bytes(arg_str[i]);
-			break;	
+			break ;
 		}
 		i++;
 	}
@@ -106,8 +104,8 @@ int						ft_conv_s(va_list args, t_flag *flag)
 	if (str == NULL)
 		return (0);
 	str = ft_create_str(str, arg_str, flag, amount);
-	free(arg_str);
 	write(1, str, size);
+	free(arg_str);
 	free(str);
 	return (size);
 }

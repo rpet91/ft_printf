@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 16:24:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/17 13:49:57 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/18 17:16:36 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ static int		ft_check_precision(va_list args, char *form_str, t_flag *flag)
 	if (*form_str == '*')
 	{
 		flag->precision = va_arg(args, int);
+		flag->precision = (flag->precision < 0) ? -1 : flag->precision;
 		i = 2;
 	}
 	while (ft_isdigit(*form_str) == 1 && *form_str != '\0')
