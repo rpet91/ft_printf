@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:51:08 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/19 11:21:23 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/19 17:39:36 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static char				*ft_put_c(char *str, t_flag *flag, wchar_t c)
 			wstr[0] = c;
 		else
 			wstr[size - ft_count_bytes(c)] = c;
-		ft_wstr_to_str(wstr, (unsigned char *)str, (size + ft_count_bytes(c) - 1));
+		size += ft_count_bytes(c);
+		ft_wstr_to_str(wstr, (unsigned char *)str, (size - 1));
 	}
 	else
 	{

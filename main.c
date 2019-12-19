@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:34:07 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/19 15:01:36 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/19 17:25:44 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ int		main(void)
 	t[2] = 128519; // = 4
 	t[3] = 0;
 	ft_printf("[");
-	a = ft_printf("%10.6ls", t);
+	a = ft_printf("%e", f1);
 	printf("] | <--- mijn functie\n[");
-	b = printf("%10.6ls", t);
+	b = printf("%e", f1);
 	printf("] | <--- echte printf\n");
 	printf("a: [%i]\n", a);
 	printf("b: [%i]\n", b);

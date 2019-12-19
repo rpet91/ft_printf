@@ -6,13 +6,12 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/13 07:58:31 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/19 09:04:28 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/19 17:40:36 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libftprintf.h"
-#include <stdio.h>
 
 char				*ft_create_exponent(double arg_dbl)
 {
@@ -38,7 +37,7 @@ char				*ft_create_exponent(double arg_dbl)
 	e2 = e1 / 10;
 	exp[2] = (char)e2 + '0';
 	exp[3] = (char)(e1 - e2) + '0';
-	printf("exp: [%s]\n", exp);
+//	printf("exp: [%s]\n", exp);
 	return (exp);
 }
 
@@ -112,14 +111,16 @@ char				*ft_create_special(double arg_dbl, char *str, t_flag *flag)
 
 int					ft_rounding(double arg_dbl, t_flag *flag)
 {
-	int			rounding;
-	unsigned	dec_nb;
+	int					rounding;
+	unsigned long long	dec_nb;
 
 	arg_dbl *= (arg_dbl < 0) ? -1 : 1;
-	dec_nb = flag->precision;
+	if (flag->precision == 0 && (arg_dbl - (unsigned long long)(arg_dbl) == 0.5
+				&& (unsigned long long)arg_dbl % 2 == 1))
+		return (1);
 	dec_nb = ft_create_dec_nb(arg_dbl, flag);
-	rounding = ft_intlen(dec_nb);
+	rounding = ft_countdigits(dec_nb);
 	rounding = (flag->precision == 0 || (flag->precision < rounding)) ? 1 : 0;
-	rounding = ((arg_dbl) - (unsigned long long)(arg_dbl) >= 0.5) ? 1 : 0;
+	rounding *= ((arg_dbl) - (unsigned long long)(arg_dbl) > 0.5) ? 1 : 0;
 	return (rounding);
 }

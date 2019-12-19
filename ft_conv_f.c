@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/10 15:06:10 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/19 09:19:10 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/19 17:41:54 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include "libftprintf.h"
+#include <stdio.h>
 
 static char	*ft_put_dec_nb(char *str, t_flag *flag, double arg_dbl, int amount)
 {
@@ -46,7 +47,7 @@ static char	*ft_cpy_str(char *str, t_flag *flag, double arg_dbl, int amount)
 	i = (arg_dbl < 0 || flag->leading != 0) ? 1 : 0;
 	arg_dbl *= (arg_dbl < 0) ? -1 : 1;
 	front_nb = arg_dbl;
-	front_nb += (arg_dbl - (unsigned long long)arg_dbl >= 0.5) ? 1 : 0;
+	front_nb += ft_rounding(arg_dbl, flag);
 	str = ft_put_dec_nb(str, flag, arg_dbl, amount);
 	front_size = ft_intlen(front_nb) + i + flag->decimal;
 	arg_str = ft_itoa_dec(front_nb, front_size, flag->decimal);
@@ -89,13 +90,16 @@ static char	*ft_create_s(char *str, t_flag *flag, double arg_dbl, int amount)
 
 static int	ft_calc_amount(double arg_dbl, t_flag *flag)
 {
-	int		amount;
-	int		digits_arg;
+	int					amount;
+	unsigned long long	front_nb;
 
-	digits_arg = (arg_dbl < 0) ? ft_intlen(-arg_dbl) : ft_intlen(arg_dbl);
-	amount = digits_arg;
+	if (arg_dbl < 0)
+		front_nb = (unsigned long long)-arg_dbl;
+	else
+		front_nb = (unsigned long long)arg_dbl;
+	amount = ft_countdigits(front_nb);
 	if (ft_rounding(arg_dbl, flag) == 1)
-		amount += (digits_arg + 1 == ft_intlen(arg_dbl + 1)) ? 1 : 0;
+		amount += (amount + 1 == ft_countdigits(front_nb + 1)) ? 1 : 0;
 	flag->decimal = (flag->decimal == 1) ? (amount - 1) / 3 : 0;
 	amount += flag->decimal;
 	amount += (flag->precision == 0) ? 0 : flag->precision + 1;
