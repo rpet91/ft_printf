@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:51:19 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/18 17:13:15 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/19 15:11:08 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,25 @@ static unsigned char	*ft_create_str(unsigned char *str, wchar_t *arg_str,
 {
 	int			i;
 	int			size;
+	int			byte_i;
 	char		fill;
 	wchar_t		*wstr;
 
 	size = (amount < flag->width) ? flag->width : amount;
 	fill = (flag->padding == 2) ? '0' : ' ';
-	i = 0;
 	wstr = malloc(sizeof(wchar_t) * (size + 1));
 	if (wstr == NULL)
 		return (NULL);
 	wstr = ft_wfilling(wstr, fill, size);
-	while (i < amount)
+	i = 0;
+	byte_i = 0;
+	while (byte_i < amount)
 	{
 		if (flag->padding == 1)
 			wstr[i] = arg_str[i];
 		else
 			wstr[i + (size - amount)] = arg_str[i];
+		byte_i += ft_count_bytes(wstr[i]);
 		i++;
 	}
 	ft_wstr_to_str(wstr, str, size);
@@ -53,6 +56,7 @@ static int				ft_count_bytes_string(wchar_t *arg_str, t_flag *flag)
 	size = 0;
 	while (arg_str[i] != '\0')
 	{
+		//printf("size: [%i]\n", size);
 		size += ft_count_bytes(arg_str[i]);
 		if (size > flag->precision && flag->precision != -1)
 		{
@@ -97,6 +101,7 @@ int						ft_conv_s(va_list args, t_flag *flag)
 
 	arg_str = ft_check_modifier(args, flag);
 	amount = ft_count_bytes_string(arg_str, flag);
+	//printf("amount: [%i]\n", amount);
 	flag->precision = (flag->precision == -1) ? amount : flag->precision;
 	amount = (amount < flag->precision) ? amount : flag->precision;
 	size = (amount < flag->width) ? flag->width : amount;

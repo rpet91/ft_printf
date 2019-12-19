@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:54:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/17 11:23:12 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/19 11:11:31 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int			ft_conv_p(va_list args, t_flag *flag)
 	int					size;
 	int					amount;
 
-	arg_int = (unsigned long long)va_arg(args, void*);
+	arg_int = (unsigned long long)va_arg(args, void *);
 	amount = ft_hexlen(arg_int) + 2;
 	amount = (amount > flag->precision) ? amount : flag->precision + 2;
 	amount = (arg_int == 0 && flag->precision == 0) ? 2 : amount;

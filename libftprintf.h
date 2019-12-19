@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 10:14:36 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/18 17:33:38 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/19 10:28:22 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ size_t				ft_strlen(const char *s);
 int					ft_intlen(long long n);
 int					ft_isdigit(int c);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
+int					ft_countdigits(unsigned long long number);
 
 #endif

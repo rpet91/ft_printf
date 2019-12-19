@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:51:08 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/18 17:03:33 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/19 11:21:23 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <wchar.h>
 #include "libftprintf.h"
+#include <stdio.h>
 
 static char				*ft_put_c(char *str, t_flag *flag, wchar_t c)
 {
@@ -29,7 +30,7 @@ static char				*ft_put_c(char *str, t_flag *flag, wchar_t c)
 			wstr[0] = c;
 		else
 			wstr[size - ft_count_bytes(c)] = c;
-		ft_wstr_to_str(wstr, (unsigned char *)str, ft_count_bytes(c) + 1);
+		ft_wstr_to_str(wstr, (unsigned char *)str, (size + ft_count_bytes(c) - 1));
 	}
 	else
 	{

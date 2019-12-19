@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:52:40 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/17 09:53:30 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/19 10:34:43 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,6 @@ static char	*ft_create_s(char *str, t_flag *flag,
 	str = ft_strmerge(str, arg_str, flag->padding, 0);
 	free(arg_str);
 	return (str);
-}
-
-static int	ft_ull_len(unsigned long long arg_int)
-{
-	int		len;
-
-	len = 0;
-	if (arg_int == 0)
-		return (1);
-	while (arg_int != 0)
-	{
-		arg_int = arg_int / 10;
-		len++;
-	}
-	return (len);
 }
 
 static void	ft_apply_modifier(unsigned long long *arg_int, t_flag *flag)
@@ -69,7 +54,7 @@ int			ft_conv_u(va_list args, t_flag *flag)
 	if (flag->precision != -1 && flag->padding == 2)
 		flag->padding = 0;
 	ft_apply_modifier(&arg_int, flag);
-	amount = ft_ull_len(arg_int);
+	amount = ft_countdigits(arg_int);
 	flag->decimal = (flag->decimal == 1) ? (amount - 1) / 3 : 0;
 	amount += flag->decimal;
 	amount = (amount < flag->precision) ? flag->precision : amount;

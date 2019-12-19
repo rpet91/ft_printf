@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/13 07:58:31 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/18 17:36:18 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/19 09:04:28 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,10 @@ int					ft_rounding(double arg_dbl, t_flag *flag)
 	unsigned	dec_nb;
 
 	arg_dbl *= (arg_dbl < 0) ? -1 : 1;
+	dec_nb = flag->precision;
 	dec_nb = ft_create_dec_nb(arg_dbl, flag);
 	rounding = ft_intlen(dec_nb);
 	rounding = (flag->precision == 0 || (flag->precision < rounding)) ? 1 : 0;
-	rounding *= (arg_dbl - (unsigned long long)arg_dbl >= 0.5) ? 1 : 0;
+	rounding = ((arg_dbl) - (unsigned long long)(arg_dbl) >= 0.5) ? 1 : 0;
 	return (rounding);
 }

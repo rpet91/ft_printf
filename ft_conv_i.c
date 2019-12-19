@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:52:13 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/17 16:06:46 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/19 10:31:23 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int			ft_conv_i(va_list args, t_flag *flag)
 		flag->padding = 0;
 	arg_int = va_arg(args, long long);
 	ft_apply_modifier(&arg_int, flag);
-	amount = (arg_int < 0) ? ft_intlen(-arg_int) : ft_intlen(arg_int);
+	amount = (arg_int < 0) ? ft_countdigits(-arg_int) : ft_countdigits(arg_int);
 	flag->decimal = (flag->decimal == 1) ? (amount - 1) / 3 : 0;
 	amount += flag->decimal;
 	amount = (amount < flag->precision) ? flag->precision : amount;

@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:34:07 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/18 17:41:02 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/19 15:01:36 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int		main(void)
 	void				*ptr;
 	double				f1;
 	double				f2;
-	long long			ll;
+	long long			ll1;
+	long long			ll2;
 	long				l;
 	unsigned long long	u;
 	double				u1;
@@ -42,9 +43,10 @@ int		main(void)
 //	u = 0x7FF0000000000001; //nan
 	u = 0x8000000000000000; //-0
 	u1 = *(double *)&u;
-	ll = 3223372036654775200;
+	ll1 = LLONG_MIN;
+	ll2 = LLONG_MAX;
 	l = 4223372036854775800;
-	i = 13545464;
+	i = -1;
 	f1 = 1.001;
 	f2 = -2396421.02510421;
 	c = 'R';
@@ -53,10 +55,15 @@ int		main(void)
 	str = ft_wstrdup(L"egg plant ");
 	str[3] = 0x1F95A;
 	str[9] = 0x1F331;
+	wchar_t t[4];
+	t[0] = 65; // = 1
+	t[1] = 191; // = 2
+	t[2] = 128519; // = 4
+	t[3] = 0;
 	ft_printf("[");
-	a = ft_printf("%.0f", 1.5);
+	a = ft_printf("%10.6ls", t);
 	printf("] | <--- mijn functie\n[");
-	b = printf("%.0f", 1.5);
+	b = printf("%10.6ls", t);
 	printf("] | <--- echte printf\n");
 	printf("a: [%i]\n", a);
 	printf("b: [%i]\n", b);
@@ -64,7 +71,7 @@ int		main(void)
 	free(s);
 	//while(1);
 	return (0);
-}
+}//127  2047  65535
 /*
 tests die falen:
 ("Kashim a %c histoires à raconter", 1001);

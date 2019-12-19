@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/06 13:47:02 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/18 16:59:12 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/19 14:08:41 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,18 @@ wchar_t		*ft_str_to_wstr(char *str)
 
 static int	ft_convert_to_wchar(wchar_t arg_char, unsigned char *str)
 {
-	if (arg_char <= 0x7F)
+	if (arg_char <= 0x007F)
 	{
 		str[0] = arg_char;
 		return (1);
 	}
-	else if (arg_char <= 0x7FF)
+	else if (arg_char <= 0x07FF)
 	{
 		str[0] = 0xC0 | arg_char >> 6;
 		str[1] = 0x80 | (arg_char & 0x3F);
 		return (2);
 	}
-	else if (arg_char <= 0x7FFF)
+	else if (arg_char <= 0xFFFF)
 	{
 		str[0] = 0xE0 | arg_char >> 12;
 		str[1] = 0x80 | (arg_char >> 6 & 0x3F);
@@ -97,11 +97,11 @@ void		ft_wstr_to_str(wchar_t *wstr, unsigned char *str, int size)
 
 int			ft_count_bytes(wchar_t wchar)
 {
-	if (wchar <= 0x7F)
+	if (wchar <= 0x007F)
 		return (1);
-	else if (wchar <= 0x7FF)
+	else if (wchar <= 0x07FF)
 		return (2);
-	else if (wchar <= 0x7FFF)
+	else if (wchar <= 0xFFFF)
 		return (3);
 	return (4);
 }
