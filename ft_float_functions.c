@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/13 07:58:31 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/19 17:40:36 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/20 10:44:33 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,16 @@ char				*ft_create_exponent(double arg_dbl)
 
 	e1 = 0;
 	exp = ft_strdup("e 00");
-	sign = (arg_dbl >= 1) ? '+' : '-';
+	sign = (arg_dbl >= 1 || arg_dbl == 0) ? '+' : '-';
 	exp[1] = sign;
-	while (arg_dbl > 9)
+	while (arg_dbl > 9 || (arg_dbl < 1 && arg_dbl != 0))
 	{
-		arg_dbl /= 10;
-		e1++;
-	}
-	while (arg_dbl < 1)
-	{
-		arg_dbl *= 10;
+		arg_dbl = (arg_dbl > 9) ? arg_dbl / 10 : arg_dbl * 10;
 		e1++;
 	}
 	e2 = e1 / 10;
 	exp[2] = (char)e2 + '0';
-	exp[3] = (char)(e1 - e2) + '0';
-//	printf("exp: [%s]\n", exp);
+	exp[3] = (char)(e1 - (e2 * 10)) + '0';
 	return (exp);
 }
 

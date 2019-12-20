@@ -6,14 +6,23 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 11:17:00 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/18 11:32:04 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/20 14:00:36 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <stdarg.h>
 #include "libftprintf.h"
 
-int		ft_check_conv(va_list args, t_flag *flag, int print_len)
+static void	ft_not_a_valid_conversion(va_list args)
+{
+	void	*error;
+
+	error = va_arg(args, void *);
+	write(1, "Not a valid conversion", 23);
+}
+
+int			ft_check_conv(va_list args, t_flag *flag, int print_len)
 {
 	if (flag->conversion == 'c' || flag->conversion == '%')
 		return (ft_conv_c(args, flag));
@@ -33,5 +42,7 @@ int		ft_check_conv(va_list args, t_flag *flag, int print_len)
 		return (ft_conv_f(args, flag));
 	else if (flag->conversion == 'e')
 		return (ft_conv_e(args, flag));
+	else
+		ft_not_a_valid_conversion(args);
 	return (0);
 }
