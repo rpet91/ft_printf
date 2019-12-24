@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:34:07 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/20 14:00:56 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/24 13:36:41 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@ int		main(void)
 //	u = 0x7FF0000000000000; //inf
 //	u = 0xFFF0000000000000; //-inf
 //	u = 0x7FF0000000000001; //nan
-	u = 0x8000000000000000; //-0
+//	u = 0x8000000000000000; //-0
+	u = 0xffffffffffffffff;
 	u1 = *(double *)&u;
 	ll1 = LLONG_MIN;
 	ll2 = LLONG_MAX;
 	l = 4223372036854775800;
-	i = -1;
-	f1 = 0;//15394.351;
+	i = INT_MAX;
+	f1 = INT_MAX;
 	f2 = -2396421.02510421;
 	c = 'R';
 	ptr = &i;
@@ -59,11 +60,10 @@ int		main(void)
 	t[0] = 65; // = 1
 	t[1] = 191; // = 2
 	t[2] = 128519; // = 4
-	t[3] = 0;
-	ft_printf("[");
-	a = ft_printf("%.e", f1);
+	t[3] = 0; 	ft_printf("[");
+	a = ft_printf("%.3g", 56789.0);
 	printf("] | <--- mijn functie\n[");
-	b = printf("%.e", f1);
+	b = printf("%.3g", 56789.0);
 	printf("] | <--- echte printf\n");
 	printf("a: [%i]\n", a);
 	printf("b: [%i]\n", b);

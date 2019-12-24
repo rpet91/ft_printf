@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/18 07:31:21 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/20 13:47:26 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/24 13:10:12 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,79 +16,57 @@
 #include "libftprintf.h"
 #include <stdio.h>
 
-static char	*ft_create_mid_nb(t_flag *flag, double arg_dbl)
+static char	*ft_place_exp(char *str, char *exp, t_flag *flag, int amount)
 {
-	int					temp_precision;
-	unsigned long long	temp;
-	unsigned long long	result;
-	char				*arg_str;
-
-	temp_precision = flag->precision;
-	temp = 1;
-	while (arg_dbl > 9 || (arg_dbl < 1 && arg_dbl != 0))
-		arg_dbl = (arg_dbl > 9) ? arg_dbl / 10 : arg_dbl * 10;
-	while (flag->precision > 0)
-	{
-		temp *= 10;
-		arg_dbl *= 10;
-		flag->precision--;
-	}
-//	printf("arg_dbl: [%f]\n", arg_dbl);
-//	printf("temp   : [%llu]\n", temp); 
-//	printf("precision: [%i]\n", flag->precision);
-	result = ((unsigned long long)arg_dbl - temp) + ft_rounding(arg_dbl, flag);
-	flag->precision = temp_precision;
-//	printf("result: [%llu]\n", result);
-	arg_str = ft_itoa_dec(result, ft_countdigits(result), 0);
-	return (arg_str);
-}
-
-
-static char	*ft_put_exp(char *str, t_flag *flag, double arg_dbl, int amount)
-{
-	int		i;
 	int		size;
-	int		front_nb;
-	char	*exp;
 
 	size = (flag->width > amount) ? flag->width : amount;
-	i = (arg_dbl < 0 || flag->leading != 0) ? 1 : 0;
-	arg_dbl *= (arg_dbl < 0) ? -1 : 1;
-	exp = ft_create_exponent(arg_dbl);
 	if (flag->padding == 1)
 		ft_memcpy(str + (amount - 4), exp, 4);
 	else
 		ft_memcpy(str + (size - 4), exp, 4);
 	free(exp);
-	while (arg_dbl > 9 || (arg_dbl < 1 && arg_dbl != 0))
-		arg_dbl = (arg_dbl > 9) ? arg_dbl / 10 : arg_dbl * 10;
-	front_nb = (int)arg_dbl;
-	front_nb += ft_rounding(arg_dbl, flag);
+	return (str);
+}
+static char	*ft_place_mid(char *str, char *mid, t_flag *flag, int amount)
+{
+	int		size;
+	int		mid_len;
+	int		sign;
+
+	size = (flag->width > amount) ? flag->width : amount;
+	mid_len = (int)ft_strlen(mid);
+	sign = (flag->leading > 0) ? 1 : 0;
+	if (flag->padding == 1)
+		ft_memcpy(str + 2 + sign, mid, mid_len);
+	else
+		ft_memcpy(str + (size - amount + 2 + sign), mid, mid_len);
+	free(mid);
+	return (str);
+}
+
+
+static char	*ft_fill_str(char *str, t_flag *flag, double arg_dbl, int amount)
+{
+	int					i;
+	int					size;
+	int					front_nb;
+	char				*mid_nb;
+	char				*exp_nb;
+
+	size = (flag->width > amount) ? flag->width : amount;
+	i = (arg_dbl < 0 || flag->leading != 0) ? 1 : 0;
+	flag->leading = (arg_dbl < 0) ? '-' : flag->leading;
+	arg_dbl *= (arg_dbl < 0) ? -1 : 1;
+	front_nb = ft_exp_front_nb(arg_dbl, flag);
+	mid_nb = ft_exp_mid_nb(arg_dbl, flag);
+	exp_nb = ft_exp_end_nb(arg_dbl, flag);
 	if (flag->padding == 1)
 		str[0 + i] = front_nb + '0';
 	else
 		str[size - (amount - i)] = front_nb + '0';
-	return (str);
-}
-
-static char	*ft_cpy_str(char *str, t_flag *flag, double arg_dbl, int amount)
-{
-	int			i;
-	int			size;
-	char		*arg_str;
-	size_t		arg_len;
-
-	size = (flag->width > amount) ? flag->width : amount;
-	i = (arg_dbl < 0 || flag->leading != 0) ? 1 : 0;
-	str = ft_put_exp(str, flag, arg_dbl, amount);
-	arg_dbl *= (arg_dbl < 0) ? -1 : 1;
-	if (flag->precision != 0)
-		arg_str = ft_create_mid_nb(flag, arg_dbl);
-	arg_len = (flag->precision != 0) ? ft_strlen(arg_str) : 0;
-	if (flag->padding == 1)
-		ft_memcpy(str + i + 2, arg_str, ft_strlen(arg_str));
-	else
-		ft_memcpy(str + (size - (int)arg_len - 4), arg_str, arg_len);
+	str = ft_place_mid(str, mid_nb, flag, amount);
+	str = ft_place_exp(str, exp_nb, flag, amount);
 	return (str);
 }
 
@@ -107,11 +85,11 @@ static char	*ft_create_s(char *str, t_flag *flag, double arg_dbl, int amount)
 	else if (sign != 0 && flag->padding != 0)
 		str[0] = sign;
 	if (flag->padding == 1 && (flag->precision != 0 || flag->hash == 1))
-		str[(0 < sign) + 2] = '.';
+		str[(0 < sign) + 1] = '.';
 	else if (flag->precision != 0 || flag->hash == 1)
 		str[size - (amount - (0 < sign) - 1)] = '.';
 	if (ft_check_special(arg_dbl, flag) == 0)
-		str = ft_cpy_str(str, flag, arg_dbl, amount);
+		str = ft_fill_str(str, flag, arg_dbl, amount);
 	else
 		str = ft_create_special(arg_dbl, str, flag);
 	return (str);
@@ -129,6 +107,8 @@ int			ft_conv_e(va_list args, t_flag *flag)
 	amount = ft_check_special(arg_dbl, flag);
 	if (amount == 0)
 	{
+		if (flag->conversion == 'g')
+			flag->precision = ft_erase_zeros(arg_dbl, flag);
 		amount += (flag->precision == 0) ? 0 : flag->precision + 1;
 		amount += (flag->leading != 0 || arg_dbl < 0) ? 1 : 0;
 		amount += (flag->hash == 1 && flag->precision == 0) ? 1 : 0;

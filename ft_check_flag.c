@@ -6,11 +6,12 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 16:24:44 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/18 17:16:36 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/23 10:38:00 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
+#include <stdlib.h>
 #include "libftprintf.h"
 
 /*
@@ -117,9 +118,11 @@ static int		ft_check_width(va_list args, char *form_str, t_flag *flag)
 static int		ft_check_flags(char *form_str, t_flag *flag)
 {
 	int		i;
+	char	*flags;
 
 	i = 0;
-	while (ft_strchr("-0+ #'", form_str[i]) && form_str[i] != '\0')
+	flags = ft_strdup("-0+ #'");
+	while (ft_strchr(flags, form_str[i]) && form_str[i] != '\0')
 	{
 		if (form_str[i] == '-')
 			flag->padding = 1;
@@ -135,6 +138,7 @@ static int		ft_check_flags(char *form_str, t_flag *flag)
 			flag->decimal = 1;
 		i++;
 	}
+	free(flags);
 	flag->flag_len = flag->flag_len + i;
 	return (i);
 }
@@ -146,18 +150,18 @@ void			ft_check_flag(va_list args, char *form_str, t_flag *flag)
 	form_str++;
 	flag->flag_len++;
 	str_i = ft_check_flags(form_str, flag);
-	form_str = form_str + str_i;
+	form_str += str_i;
 	str_i = ft_check_width(args, form_str, flag);
-	form_str = form_str + str_i;
+	form_str += str_i;
 	if (*form_str == '.')
 	{
 		str_i = ft_check_precision(args, form_str, flag);
-		form_str = form_str + str_i;
+		form_str += str_i;
 	}
 	else
 		flag->precision = -1;
 	str_i = ft_check_modifier(form_str, flag);
-	form_str = form_str + str_i;
+	form_str += str_i;
 	if (*form_str == '\0')
 		flag->conversion = *form_str;
 	else

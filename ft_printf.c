@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 09:45:38 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/20 13:48:37 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/23 10:33:45 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int			ft_printf(const char *format, ...)
 		{
 			ft_check_flag(args, format_string, flag);
 			print_len += ft_check_conv(args, flag, print_len);
+			if (flag->conversion == -1)
+				return (print_len);
 		}
 		else
 			print_len += ft_create_string(format_string, flag);

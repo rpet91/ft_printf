@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 10:14:36 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/19 10:28:22 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/24 12:41:18 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int					ft_conv_x(va_list args, t_flag *flag);
 void				ft_conv_n(va_list args, t_flag *flag, int print_len);
 int					ft_conv_f(va_list args, t_flag *flag);
 int					ft_conv_e(va_list args, t_flag *flag);
+int					ft_conv_g(va_list args, t_flag *flag);
 
 /*
 **					Build string functions
@@ -77,8 +78,17 @@ int					ft_count_bytes(wchar_t wchar);
 unsigned long long	ft_create_dec_nb(double arg_dbl, t_flag *flag);
 int					ft_check_special(double arg_dbl, t_flag *flag);
 char				*ft_create_special(double arg_dbl, char *str, t_flag *flag);
-char				*ft_create_exponent(double arg_dbl);
 int					ft_rounding(double arg_dbl, t_flag *flag);
+int					ft_erase_zeros(double arg_dbl, t_flag *flag);
+
+/*
+**					Exponent functions
+*/
+
+int					ft_exp_front_nb(double arg_dbl, t_flag *flag);
+char				*ft_exp_mid_nb(double arg_dbl, t_flag *flag);
+int					ft_calculate_exp_nb(double arg_dbl, t_flag *flag);
+char				*ft_exp_end_nb(double arg_dbl, t_flag *flag);
 
 /*
 **					Libft functions
