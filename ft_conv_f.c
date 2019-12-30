@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/10 15:06:10 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/24 12:40:14 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/30 15:14:58 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include "libftprintf.h"
-#include <stdio.h>
 
 static char	*ft_put_dec_nb(char *str, t_flag *flag, double arg_dbl, int amount)
 {
@@ -102,8 +101,11 @@ static int	ft_calc_amount(double arg_dbl, t_flag *flag)
 		amount += (amount + 1 == ft_countdigits(front_nb + 1)) ? 1 : 0;
 	flag->decimal = (flag->decimal == 1) ? (amount - 1) / 3 : 0;
 	amount += flag->decimal;
-	if (flag->conversion == 'g')
-		flag->precision = ft_erase_zeros(arg_dbl, flag);
+	if (flag->conversion == 'g' && flag->hash != 1)
+	{
+		flag->conversion = 'f';
+		flag->precision -= ft_erase_zeros(arg_dbl, flag);
+	}
 	amount += (flag->precision == 0) ? 0 : flag->precision + 1;
 	amount += (flag->leading != 0 || arg_dbl < 0) ? 1 : 0;
 	amount += (flag->hash == 1 && flag->precision == 0) ? 1 : 0;

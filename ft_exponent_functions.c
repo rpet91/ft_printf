@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 08:22:39 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/23 11:37:06 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/30 14:29:00 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,17 @@ char		*ft_exp_mid_nb(double arg_dbl, t_flag *flag)
 
 int			ft_calculate_exp_nb(double arg_dbl, t_flag *flag)
 {
-	unsigned long long	temp;
 	int					result;
+	unsigned long long	temp;
 
+	arg_dbl *= (arg_dbl < 0) ? -1 : 1;
 	temp = (unsigned long long)arg_dbl + ft_rounding(arg_dbl, flag);
-	result = 0;
-	if (temp >= 10)
+	result = (temp > arg_dbl) ? 1 : 0;
+	if (arg_dbl >= 10)
 	{
-		while (temp >= 10)
+		while (arg_dbl >= 10)
 		{
-			temp /= 10;
+			arg_dbl /= 10;
 			result++;
 		}
 	}
@@ -78,17 +79,23 @@ int			ft_calculate_exp_nb(double arg_dbl, t_flag *flag)
 char		*ft_exp_end_nb(double arg_dbl, t_flag *flag)
 {
 	char	*exp_str;
+	char	*exp_nb_str;
 	char	sign;
-	int		dec_nb_r;
-	int		dec_nb_l;
+	int		exp_nb;
+	int		size;
 
-	dec_nb_r = 0;
+	exp_nb = 0;
 	sign = (arg_dbl >= 1 || arg_dbl == 0) ? '+' : '-';
-	dec_nb_r = ft_calculate_exp_nb(arg_dbl, flag);
-	exp_str = ft_strdup("e+00");
+	exp_nb = ft_calculate_exp_nb(arg_dbl, flag);
+	size = (exp_nb < 10) ? ft_countdigits(exp_nb) + 1 : ft_countdigits(exp_nb);
+	exp_str = malloc(sizeof(char) * (size + 3));
+	if (exp_str == NULL)
+		return (NULL);
+	exp_str[0] = 'e';
 	exp_str[1] = sign;
-	dec_nb_l = dec_nb_r / 10;
-	exp_str[2] = (char)dec_nb_l + '0';
-	exp_str[3] = (char)(dec_nb_r - (dec_nb_l * 10)) + '0';
+	exp_str[size + 2] = '\0';
+	exp_nb_str = ft_itoa_dec(exp_nb, size, 0);
+	ft_memcpy(exp_str + 2, exp_nb_str, size + 2);
+	free(exp_nb_str);
 	return (exp_str);
 }

@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/18 07:31:21 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/24 13:10:12 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/30 15:13:56 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include "libftprintf.h"
-#include <stdio.h>
 
 static char	*ft_place_exp(char *str, char *exp, t_flag *flag, int amount)
 {
 	int		size;
+	int		exp_len;
 
 	size = (flag->width > amount) ? flag->width : amount;
+	exp_len = (int)ft_strlen(exp);
 	if (flag->padding == 1)
-		ft_memcpy(str + (amount - 4), exp, 4);
+		ft_memcpy(str + (amount - exp_len), exp, exp_len);
 	else
-		ft_memcpy(str + (size - 4), exp, 4);
+		ft_memcpy(str + (size - exp_len), exp, exp_len);
 	free(exp);
 	return (str);
 }
@@ -107,12 +108,12 @@ int			ft_conv_e(va_list args, t_flag *flag)
 	amount = ft_check_special(arg_dbl, flag);
 	if (amount == 0)
 	{
-		if (flag->conversion == 'g')
-			flag->precision = ft_erase_zeros(arg_dbl, flag);
+		if (flag->conversion == 'g' && flag->hash != 1)
+			flag->precision -= ft_erase_zeros(arg_dbl, flag);
 		amount += (flag->precision == 0) ? 0 : flag->precision + 1;
 		amount += (flag->leading != 0 || arg_dbl < 0) ? 1 : 0;
 		amount += (flag->hash == 1 && flag->precision == 0) ? 1 : 0;
-		amount += 5;
+		amount += (6 - (ft_intlen(ft_calculate_exp_nb(arg_dbl, flag)) != 3));
 	}
 	size = (flag->width > amount) ? flag->width : amount;
 	str = malloc(sizeof(char) * (size + 1));

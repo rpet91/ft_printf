@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 10:14:36 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/24 12:41:18 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/30 14:32:20 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,12 @@ int					ft_exp_front_nb(double arg_dbl, t_flag *flag);
 char				*ft_exp_mid_nb(double arg_dbl, t_flag *flag);
 int					ft_calculate_exp_nb(double arg_dbl, t_flag *flag);
 char				*ft_exp_end_nb(double arg_dbl, t_flag *flag);
+
+/*
+**					Zero removal function for 'g' conversion
+*/
+
+int					ft_erase_zeros(double arg_dbl, t_flag *flag);
 
 /*
 **					Libft functions

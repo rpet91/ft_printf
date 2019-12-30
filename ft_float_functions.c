@@ -6,13 +6,12 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/13 07:58:31 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/24 13:58:10 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/30 14:36:22 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libftprintf.h"
-#include <stdio.h> //weghalen
 
 unsigned long long	ft_create_dec_nb(double arg_dbl, t_flag *flag)
 {
@@ -96,41 +95,4 @@ int					ft_rounding(double arg_dbl, t_flag *flag)
 	rounding = (flag->precision == 0 || (flag->precision < rounding)) ? 1 : 0;
 	rounding *= ((arg_dbl) - (unsigned long long)(arg_dbl) > 0.5) ? 1 : 0;
 	return (rounding);
-}
-
-int					ft_erase_zeros(double arg_dbl, t_flag *flag)
-{
-	unsigned long long	nb;
-	int					temp_precision;
-	char				*nb_str;
-
-	if (arg_dbl == 0)
-		return (0);
-	arg_dbl *= (arg_dbl < 0) ? -1 : 1;
-//	printf("arg_dbl: [%.*f]\n", flag->precision, arg_dbl);
-	temp_precision = flag->precision;
-//	printf("temp_precision: [%i]\n", temp_precision);
-	while (flag->precision > 0)
-	{
-		arg_dbl *= 10;
-		flag->precision--;
-	}
-//	printf("prec hier: [%i]\n", flag->precision);
-	nb = (unsigned long long)arg_dbl + ft_rounding(arg_dbl, flag);
-	flag->precision = temp_precision;
-//	printf("nb: [%llu]\n", nb);
-	nb_str = ft_itoa_dec(nb, ft_countdigits(nb), 0);
-//	printf("nb_str: [%s]\n", nb_str);
-	nb = (int)ft_strlen(nb_str) - 1;
-//	printf("nb kijkt naar: [%c]\n", nb_str[nb]);
-	temp_precision = 0;
-	while (nb_str[nb] == '0' && flag->precision > temp_precision)
-	{
-		temp_precision++;
-		nb--;
-	}
-//	printf("flag prec eind: [%i]\n", temp_precision);
-	flag->precision -= temp_precision;
-//	printf("return value: [%i]\n", flag->precision);
-	return (flag->precision);
 }

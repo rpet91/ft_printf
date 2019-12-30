@@ -6,7 +6,7 @@
 #    By: rpet <marvin@codam.nl>                       +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/13 09:40:33 by rpet          #+#    #+#                  #
-#    Updated: 2019/12/23 11:07:03 by rpet          ########   odam.nl          #
+#    Updated: 2019/12/30 14:59:13 by rpet          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ SRCS = ft_printf.c ft_empty_flag.c ft_check_flag.c ft_check_conv.c \
 	   ft_create_string.c ft_conv_c.c ft_conv_s.c ft_conv_p.c ft_conv_i.c \
 	   ft_conv_u.c ft_conv_x.c ft_conv_n.c ft_conv_f.c ft_conv_e.c ft_conv_g.c \
 	   ft_build_string.c ft_wchar_functions.c ft_float_functions.c \
-	   ft_exponent_functions.c
+	   ft_exponent_functions.c ft_zero_removal.c
 OBJS = $(SRCS:.c=.o)
 LIBDIR = libft/
 FLAGS = -Wall -Wextra -Werror
@@ -43,9 +43,3 @@ fclean: clean
 re: fclean all
 
 bonus: $(NAME)
-
-		#\/  DIET MOET WEG \/
-
-
-test: $(NAME)
-	gcc main.c -L. -lftprintf #-fsanitize=address

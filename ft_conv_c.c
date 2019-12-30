@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:51:08 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/19 17:39:36 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/30 15:00:13 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <stdlib.h>
 #include <wchar.h>
 #include "libftprintf.h"
-#include <stdio.h>
 
 static char				*ft_put_c(char *str, t_flag *flag, wchar_t c)
 {

@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:34:07 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/24 13:36:41 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/30 15:10:30 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <locale.h>
 #include <limits.h>
 #include <math.h>
+#include <float.h>
 
 int		main(void)
 {
@@ -27,7 +28,6 @@ int		main(void)
 	wchar_t				*str;
 	wchar_t				*str2;
 	char				c;
-	int					i;
 	char				*s;
 	void				*ptr;
 	double				f1;
@@ -37,7 +37,14 @@ int		main(void)
 	long				l;
 	unsigned long long	u;
 	double				u1;
+	char				unit[200];
+	int					t3 = -1;
+	int					t4 = -1;
+	int					i = 199;
 
+	while (i--)
+		unit[i] = '0';
+	unit[199] = 0;
 //	u = 0x7FF0000000000000; //inf
 //	u = 0xFFF0000000000000; //-inf
 //	u = 0x7FF0000000000001; //nan
@@ -49,7 +56,7 @@ int		main(void)
 	l = 4223372036854775800;
 	i = INT_MAX;
 	f1 = INT_MAX;
-	f2 = -2396421.02510421;
+	f2 = DBL_MAX;
 	c = 'R';
 	ptr = &i;
 	s = strdup("Remkoe");
@@ -61,12 +68,12 @@ int		main(void)
 	t[1] = 191; // = 2
 	t[2] = 128519; // = 4
 	t[3] = 0; 	ft_printf("[");
-	a = ft_printf("%.3g", 56789.0);
+	a = ft_printf("%s%hhn ", unit, &t4);
 	printf("] | <--- mijn functie\n[");
-	b = printf("%.3g", 56789.0);
+	b = printf("%s%hhn ", unit, &t3);
 	printf("] | <--- echte printf\n");
-	printf("a: [%i]\n", a);
-	printf("b: [%i]\n", b);
+	printf("a: [%hhi]\n", t4);
+	printf("b: [%hhi]\n", t3);
 	free(str);
 	free(s);
 	//while(1);
@@ -77,7 +84,7 @@ tests die falen:
 ("Kashim a %c histoires à raconter", 1001);
 ("%c\n", INT_MAX);
 
-
+gcc main.c -L. -lftprintf
 
 conversions verduidelijking:
 'c' = character.
