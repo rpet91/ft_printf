@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:52:13 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/19 10:31:23 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/31 13:04:51 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static char	*ft_create_s(char *str, t_flag *flag, long long arg_int, int amount)
 	sign = (arg_int < 0 || flag->leading != 0) ? 1 : 0;
 	arg_int *= (arg_int < 0) ? -1 : 1;
 	arg_str = ft_itoa_dec(arg_int, amount, flag->decimal);
+	if (arg_str == NULL)
+		return (NULL);
 	str = ft_strmerge(str, arg_str, flag->padding, sign);
 	free(arg_str);
 	return (str);

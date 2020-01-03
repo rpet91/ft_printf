@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 08:22:39 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/30 14:29:00 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/31 13:05:41 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ char		*ft_exp_end_nb(double arg_dbl, t_flag *flag)
 	exp_str[1] = sign;
 	exp_str[size + 2] = '\0';
 	exp_nb_str = ft_itoa_dec(exp_nb, size, 0);
+	if (exp_nb_str == NULL)
+		return (NULL);
 	ft_memcpy(exp_str + 2, exp_nb_str, size + 2);
 	free(exp_nb_str);
 	return (exp_str);

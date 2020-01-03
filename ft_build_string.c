@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/02 15:18:20 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/18 17:02:22 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/31 13:02:20 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ char		*ft_strmerge(char *dst, char *src, int padding, int sign)
 	int		size;
 	int		amount;
 
+	if (dst == NULL || src == NULL)
+		return (NULL);
 	i = sign;
 	size = (int)ft_strlen(dst);
 	amount = (int)ft_strlen(src);

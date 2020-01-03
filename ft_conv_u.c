@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 07:52:40 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/19 10:34:43 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/31 13:04:35 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static char	*ft_create_s(char *str, t_flag *flag,
 	fill = (flag->precision == -1 && flag->padding == 2) ? '0' : ' ';
 	str = ft_filling(str, fill, size);
 	arg_str = ft_itoa_dec(arg_int, amount, flag->decimal);
+	if (arg_str == NULL)
+		return (NULL);
 	str = ft_strmerge(str, arg_str, flag->padding, 0);
 	free(arg_str);
 	return (str);

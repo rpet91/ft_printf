@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/10 15:06:10 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/30 15:14:58 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/31 12:58:39 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,12 @@ static char	*ft_cpy_str(char *str, t_flag *flag, double arg_dbl, int amount)
 	size = (flag->width > amount) ? flag->width : amount;
 	i = (arg_dbl < 0 || flag->leading != 0) ? 1 : 0;
 	arg_dbl *= (arg_dbl < 0) ? -1 : 1;
-	front_nb = arg_dbl;
-	front_nb += ft_rounding(arg_dbl, flag);
+	front_nb = (unsigned long long)arg_dbl + ft_rounding(arg_dbl, flag);
 	str = ft_put_dec_nb(str, flag, arg_dbl, amount);
 	front_size = ft_intlen(front_nb) + i + flag->decimal;
 	arg_str = ft_itoa_dec(front_nb, front_size, flag->decimal);
+	if (arg_str == NULL)
+		return (NULL);
 	while (i < front_size)
 	{
 		if (flag->padding == 1)

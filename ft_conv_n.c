@@ -6,24 +6,12 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/05 07:50:43 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/18 16:45:37 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/31 10:20:36 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libftprintf.h"
-
-static void	ft_apply_modifier(long long **amount, t_flag *flag)
-{
-	if (flag->modifier == 0)
-		*amount = (long long *)(int *)*amount;
-	if (flag->modifier == 1)
-		*amount = (long long *)(long *)*amount;
-	if (flag->modifier == 3)
-		*amount = (long long *)(short *)*amount;
-	if (flag->modifier == 4)
-		*amount = (long long *)(signed char *)*amount;
-}
 
 void		ft_conv_n(va_list args, t_flag *flag, int print_len)
 {
@@ -32,6 +20,14 @@ void		ft_conv_n(va_list args, t_flag *flag, int print_len)
 	amount = (long long *)va_arg(args, int *);
 	if (amount == NULL)
 		return ;
-	ft_apply_modifier(&amount, flag);
-	*amount = (long long)print_len;
+	if (flag->modifier == 0)
+		*((int *)amount) = (int)print_len;
+	if (flag->modifier == 1)
+		*((long *)amount) = (long)print_len;
+	if (flag->modifier == 2)
+		*((long long *)amount) = (long long)print_len;
+	if (flag->modifier == 3)
+		*((short *)amount) = (short)print_len;
+	if (flag->modifier == 4)
+		*((signed char *)amount) = (signed char)print_len;
 }

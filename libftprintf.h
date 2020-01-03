@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 10:14:36 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/30 14:32:20 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/31 12:52:32 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ unsigned long long	ft_create_dec_nb(double arg_dbl, t_flag *flag);
 int					ft_check_special(double arg_dbl, t_flag *flag);
 char				*ft_create_special(double arg_dbl, char *str, t_flag *flag);
 int					ft_rounding(double arg_dbl, t_flag *flag);
-int					ft_erase_zeros(double arg_dbl, t_flag *flag);
 
 /*
 **					Exponent functions

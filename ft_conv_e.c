@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/18 07:31:21 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/30 15:13:56 by rpet          ########   odam.nl         */
+/*   Updated: 2019/12/30 16:03:50 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static char	*ft_place_exp(char *str, char *exp, t_flag *flag, int amount)
 		ft_memcpy(str + (amount - exp_len), exp, exp_len);
 	else
 		ft_memcpy(str + (size - exp_len), exp, exp_len);
-	free(exp);
 	return (str);
 }
+
 static char	*ft_place_mid(char *str, char *mid, t_flag *flag, int amount)
 {
 	int		size;
@@ -42,10 +42,8 @@ static char	*ft_place_mid(char *str, char *mid, t_flag *flag, int amount)
 		ft_memcpy(str + 2 + sign, mid, mid_len);
 	else
 		ft_memcpy(str + (size - amount + 2 + sign), mid, mid_len);
-	free(mid);
 	return (str);
 }
-
 
 static char	*ft_fill_str(char *str, t_flag *flag, double arg_dbl, int amount)
 {
@@ -68,12 +66,14 @@ static char	*ft_fill_str(char *str, t_flag *flag, double arg_dbl, int amount)
 		str[size - (amount - i)] = front_nb + '0';
 	str = ft_place_mid(str, mid_nb, flag, amount);
 	str = ft_place_exp(str, exp_nb, flag, amount);
+	free(mid_nb);
+	free(exp_nb);
 	return (str);
 }
 
 static char	*ft_create_s(char *str, t_flag *flag, double arg_dbl, int amount)
 {
-	int 	size;
+	int		size;
 	int		sign;
 	char	fill;
 
