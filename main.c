@@ -78,26 +78,4 @@ int		main(void)
 	free(s);
 	//while(1);
 	return (0);
-}//127  2047  65535
-/*
-tests die falen:
-("Kashim a %c histoires à raconter", 1001);
-("%c\n", INT_MAX);
-
-gcc main.c -L. -lftprintf
-
-conversions verduidelijking:
-'c' = character.
-'s' = string.
-'p' = pointer.
-'d' = decimal signed integer.
-'i' = decimal signed integer.
-'u' = unsigned integer.
-'x' = hex integer. icm een # geen 0x.
-'X' = hex integer (met hoofdletter). icm een # geen 0X.
-'%' = plaats alleen de %.
-'n' = slaat op hoeveel characters op dat moment zijn geprint.
-'f' = 
-'g' = 
-'e' = 
-*/
+}
