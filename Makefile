@@ -6,7 +6,7 @@
 #    By: rpet <marvin@codam.nl>                       +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/13 09:40:33 by rpet          #+#    #+#                  #
-#    Updated: 2021/10/27 09:13:17 by rpet          ########   odam.nl          #
+#    Updated: 2021/10/27 09:16:00 by rpet          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,6 @@ fclean: clean
 re: fclean all
 
 test: all
-	gcc $(NAME) main.c -o $(TESTNAME)
+	gcc $(NAME) main.c -o $(TESTNAME) && ./$(TESTNAME)
 
 bonus: $(NAME)
