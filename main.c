@@ -6,7 +6,7 @@
 /*   By: rpet <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:34:07 by rpet          #+#    #+#                 */
-/*   Updated: 2019/12/30 15:10:30 by rpet          ########   odam.nl         */
+/*   Updated: 2021/10/27 09:08:40 by rpet          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int		main(void)
 	int					t3 = -1;
 	int					t4 = -1;
 	int					i = 199;
+	wint_t				duim = 0x1F44D;
 
 	while (i--)
 		unit[i] = '0';
@@ -68,14 +69,36 @@ int		main(void)
 	t[1] = 191; // = 2
 	t[2] = 128519; // = 4
 	t[3] = 0; 	ft_printf("[");
-	a = ft_printf("%s%hhn ", unit, &t4);
+	a = ft_printf("%ls", str);
 	printf("] | <--- mijn functie\n[");
-	b = printf("%s%hhn ", unit, &t3);
+	b = printf("%ls", str);
 	printf("] | <--- echte printf\n");
-	printf("a: [%hhi]\n", t4);
-	printf("b: [%hhi]\n", t3);
+	printf("a: [%i]\n", a);
+	printf("b: [%i]\n", b);
 	free(str);
 	free(s);
 	//while(1);
 	return (0);
-}
+}//127  2047  65535
+/*
+tests die falen:
+("Kashim a %c histoires à raconter", 1001);
+("%c\n", INT_MAX);
+
+gcc main.c -L. -lftprintf
+
+conversions verduidelijking:
+'c' = character.
+'s' = string.
+'p' = pointer.
+'d' = decimal signed integer.
+'i' = decimal signed integer.
+'u' = unsigned integer.
+'x' = hex integer. icm een # geen 0x.
+'X' = hex integer (met hoofdletter). icm een # geen 0X.
+'%' = plaats alleen de %.
+'n' = slaat op hoeveel characters op dat moment zijn geprint.
+'f' = 
+'g' = 
+'e' = 
+*/

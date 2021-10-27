@@ -5,46 +5,36 @@
 #                                                      +:+                     #
 #    By: rpet <marvin@codam.nl>                       +#+                      #
 #                                                    +#+                       #
-#    Created: 2019/11/13 09:40:33 by rpet          #+#    #+#                  #
-#    Updated: 2021/10/27 09:13:17 by rpet          ########   odam.nl          #
+#    Created: 2019/10/28 14:42:36 by rpet          #+#    #+#                  #
+#    Updated: 2020/11/30 11:34:40 by rpet          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
-TESTNAME = printf
-SRCS = ft_printf.c ft_empty_flag.c ft_check_flag.c ft_check_conv.c \
-	   ft_create_string.c ft_conv_c.c ft_conv_s.c ft_conv_p.c ft_conv_i.c \
-	   ft_conv_u.c ft_conv_x.c ft_conv_n.c ft_conv_f.c ft_conv_e.c ft_conv_g.c \
-	   ft_build_string.c ft_wchar_functions.c ft_float_functions.c \
-	   ft_exponent_functions.c ft_zero_removal.c
+NAME = libft.a
+SRCS = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
+	   ft_memchr.c ft_memcmp.c ft_strlen.c ft_strlcpy.c ft_strlcat.c \
+	   ft_strchr.c ft_strrchr.c ft_strnstr.c ft_strncmp.c ft_atoi.c \
+	   ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
+	   ft_toupper.c ft_tolower.c ft_calloc.c ft_strdup.c ft_substr.c \
+	   ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c \
+	   ft_strmapi.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c \
+	   ft_putnbr_fd.c ft_intlen.c ft_countdigits.c
 OBJS = $(SRCS:.c=.o)
-LIBDIR = libft/
 FLAGS = -Wall -Wextra -Werror
-
-.PHONY: all clean fclean re bonus test
+INC = libft.h
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	cd $(LIBDIR) && make all
-	mv $(LIBDIR)/libft.a libftprintf.a
 	ar rcs $(NAME) $(OBJS)
 
-%.o: %.c
-	gcc -c $? -o $@ -I. $(FLAGS)
+%.o: %.c $(INC)
+	gcc -c $< -o $@ -I. $(FLAGS)
 
 clean:
-	cd $(LIBDIR) && make clean
 	rm -f $(OBJS)
 
 fclean: clean
-	cd $(LIBDIR) && make fclean
 	rm -f $(NAME)
-	rm -f $(TESTNAME)
 
 re: fclean all
-
-test: all
-	gcc $(NAME) main.c -o $(TESTNAME)
-
-bonus: $(NAME)
